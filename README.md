@@ -2,7 +2,7 @@
 
 Hands-on Lab
 
-## Exercise #01 (15 minutes)
+## Exercise #01 - Azure Calculator (15 minutes)
 
 1. In a browser, navigate to the [Azure Pricing Calculator](https://azure.microsoft.com/en-us/pricing/calculator/) webpage.
 
@@ -19,7 +19,7 @@ Hands-on Lab
 
 4. Change the currency to Brazilian Real (R$), then select Export to download a copy of the estimate for offline viewing in Microsoft Excel (.xlsx) format.
 
-## Exercise #02 (15 minutes) 
+## Exercise #02 - TCO Calculator (15 minutes) 
 
 1. In a browser, navigate to the [Total Cost of Ownership (TCO) Calculator](https://azure.microsoft.com/en-us/pricing/tco/calculator/) page.
 
@@ -95,7 +95,7 @@ Hands-on Lab
 
 10. To save or print a PDF copy of the report, click **Download**.
 
-## Lab #01 (15 minutes)
+## Lab #01 - Resource Groups (15 minutes)
 
 1. Sign in to the [Azure portal](https://portal.azure.com).
 
@@ -115,7 +115,7 @@ Hands-on Lab
 
 1. Click **Review + Create** and then click **Create**.
 
-## Lab #02 (20 minutes)
+## Lab #02 - Virtual Networks (20 minutes)
 
 1. In the Azure portal, search for and select **Virtual networks**, and, on the **Virtual networks** blade, click **+ Add**.
 
@@ -148,7 +148,7 @@ Hands-on Lab
     | Route table | **None** |
     | | |
 
-## Lab #03 (30 minutes)
+## Lab #03 - Virtual Machine (30 minutes)
 
 1. In the Azure portal, search for and select **Virtual machines** and, on the **Virtual machines** blade, click **+ Add**.
 
