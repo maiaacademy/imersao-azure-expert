@@ -6,7 +6,7 @@ Hands-on Lab
 
 1. In a browser, navigate to the [Azure Pricing Calculator](https://azure.microsoft.com/en-us/pricing/calculator/) webpage.
 
-2. Add the inventory data.
+2. Add the inventory data. Click here[https://github.com/maiaacademy/imersao-azure-expert/blob/main/AllFiles/IMG01.png]
 
 **Important Notes**
 - Development environment licensing will be purchased by Marketplace
