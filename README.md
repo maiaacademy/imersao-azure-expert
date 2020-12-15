@@ -13,5 +13,4 @@ Hands-on Lab
 - Include Reserved instances in the Production Environment 
 - Include VPN Gateway, Load Balancers and 500 GB Outbound Traffic
 
-
 ## Exercise #02 (15 minutes) 
