@@ -1,2 +1,3 @@
-# imersao-azure-expert
-Imersao Azure Expert 2.0
+# Imersao Azure Expert 2.0
+
+Hands-on Lab
