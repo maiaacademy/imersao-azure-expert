@@ -111,7 +111,7 @@ Hands-on Lab
     |Tags| environment: resource, project: azureexpert |
     | | |
 
-4. Repeat Resources groups name "RG-FLN-Networking" and "RG-FLN-Storage".
+4. Repeat and create the Resources groups name "RG-FLN-Networking" and "RG-FLN-Storage".
 
 1. Click **Review + Create** and then click **Create**.
 
@@ -197,7 +197,7 @@ Hands-on Lab
     | --- | --- |
     | Boot diagnostics | **Enable with custom storage account** |
     | Diagnostics storage account | create new |
-    | Properties | Name: saflndiag, Account kind: StorageV2, Performance: Standard, Replication: Locally-redundant-storage (LRS) |
+    | Properties stora account | Name: saflndiag, Account kind: StorageV2, Performance: Standard, Replication: Locally-redundant-storage (LRS) |
     | Enable auto-shutdown | off
       
     >**Note**: Record the name of diagnostics storage account. You will use it in the next task. 
@@ -221,6 +221,10 @@ Hands-on Lab
     | | |
 
 1. Connect Virtual machine and start disk.
+
+1. Explore properties to Virtual machine.
+
+## Lab #04 - Virtual Networking
 
 
 
