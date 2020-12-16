@@ -99,21 +99,23 @@ Hands-on Lab
 
 1. Sign in to the [Azure portal](https://portal.azure.com).
 
-2. Search for and select **Resource groups**. 
+1. Search for and select **Resource groups**. 
 
-3. On the **Resource groups** blade, click **+ Add** and create a resource group with the following settings:
+1. On the **Resource groups** blade, click **+ Add** and create a resource group with the following settings:
 
     |Setting|Value|
     |---|---|
     |Subscription| the name of the Azure subscription you will use in this lab |
-    |Resource Group| **RG-FLN-VMS**|
+    |Resource Group| **RGNAME-VMS**|
     |Region| East US 2 |
     |Tags| environment: resource, project: azureexpert |
     | | |
 
-4. Repeat and create the Resources groups name "RG-FLN-Networking" and "RG-FLN-Storage".
+1. Repeat and create the Resources groups name "RGNAME-Networking" and "RGNAME-Storage".
 
 1. Click **Review + Create** and then click **Create**.
+
+1. Explore properties to Resource groups.
 
 ## Lab #02 - Virtual Networks (20 minutes)
 
@@ -125,7 +127,7 @@ Hands-on Lab
     | --- | --- |
     | Subscription | the name of the Azure subscription you will be using in this lab |
     | Resource Group | the name of a resource group **RG-FLN-Network** |
-    | Name | **VNET-FLN-HUB** |
+    | Name | **VNETNAME** |
     | Region | the name of any Azure region available in the subscription you will use in this lab |
     | IPv4 address space | **10.1.0.0/16** |
     | Subnet name | **Default** |
@@ -157,11 +159,11 @@ Hands-on Lab
     | Setting | Value | 
     | --- | --- |
     | Subscription | the name of the Azure subscription you will be using in this lab |
-    | Resource group | the name of a new resource group **RG-FLN-VMS** |
-    | Virtual machine name | **VMFLNWEB01** |
+    | Resource group | the name of a new resource group **RGNAME-VMS** |
+    | Virtual machine name | **VMNAME** |
     | Region | select one of the regions that support availability zones and where you can provision Azure virtual machines | 
     | Availability options | **Availability sets** |
-    | Availability set | **AS-WEB** |
+    | Availability set | **AS-VM** |
     | Image | **Windows Server 2019 Datacenter - Gen1** |
     | Azure Spot instance | **No** |
     | Size | **Standard_B2s** |
@@ -182,9 +184,9 @@ Hands-on Lab
 
     | Setting | Value | 
     | --- | --- |
-    | Virtual Network | **VNET-FLN-HUB** |
+    | Virtual Network | **VNETNAME** |
     | Subnet | **FrontEnd** |
-    | Public IP | **VMFLNWEB01-PI** |
+    | Public IP | **VMNAME1-PI** |
     | NIC network security group | **Basic** |
     | Accelerated networking | **Off** |
 	| Inbound Ports | **RDP (3389)** |
@@ -214,7 +216,7 @@ Hands-on Lab
 
     | Setting | Value | 
     | --- | --- |
-    | Disk name | **VMFLNWEB01-DataDisk01** |
+    | Disk name | **VMNAME-DataDisk01** |
     | Source type | **None** |
     | Account type | **Premium SSD** |
     | Size | **50 GiB** |
@@ -222,9 +224,9 @@ Hands-on Lab
 
 1. Connect Virtual machine and start disk.
 
-1. Explore properties to Virtual machine.
+1. Explore properties to Virtual machines.
 
-## Project #01 - Migrate Virtual Machines (60 min)
+## Lab #04 - Migrate Virtual Machines (60 min)
 
 1. In the Azure portal, open another browser tab, navigate to the [301-nested-vms-in-virtual-network Azure QuickStart template](https://github.com/Azure/azure-quickstart-templates/tree/master/301-nested-vms-in-virtual-network) and select **Deploy to Azure**. This will automatically redirect the browser to the **Hyper-V Host Virtual Machine with nested VMs** blade in the Azure portal.
 
@@ -233,12 +235,12 @@ Hands-on Lab
     | Setting | Value | 
     | --- | --- |
     | Subscription | the name of the Azure subscription you are using in this lab |
-    | Resource group | **RG-FLN-NESTED** |
-    | Host Public IP Address Name | **VMFLNNESTED-PI** |
-    | Virtual Network Name | **VNET-FLN-NESTED** |
-    | Host Network Interface1Name | **VMFLNNESTED-NIC01** |
-    | Host Network Interface2Name | **VMFLNNESTED-NIC02** |
-    | Host Virtual Machine Name | **VMFLNNESTED** |
+    | Resource group | **RGNAME-NESTED** |
+    | Host Public IP Address Name | **HOSTNAME-PI** |
+    | Virtual Network Name | **VNETNAME-NESTED** |
+    | Host Network Interface1Name | **HOSTNAME-NIC01** |
+    | Host Network Interface2Name | **HOSTNAME-NIC02** |
+    | Host Virtual Machine Name | **HOSTNAME** |
     | Host Admin Username | **admaz** |
     | Host Admin Password | **Azur3Exp3rt*** |
 
@@ -252,9 +254,9 @@ Hands-on Lab
 
 1. On the blade, select **Networking**. 
 
-1. On the **Networking** blade, select **VMFLNNESTED-NIC01** and then select **Add inbound port rule**.
+1. On the **Networking** blade, select **HOSTNAME-NIC01** and then select **Add inbound port rule**.
 
-    >**Note**: Make sure that you modify the settings of **VMFLNNESTED-NIC01**, which has the public IP address assigned to it.
+    >**Note**: Make sure that you modify the settings of **HOSTNAME-NIC01**, which has the public IP address assigned to it.
 
 1. On the **Add inbound security rule** blade, specify the following settings (leave others with their default values) and select **Add**:
 
@@ -262,11 +264,11 @@ Hands-on Lab
     | --- | --- |
     | Destination port range | **3389** |
     | Protocol | **Any** |
-    | Name | **AllowRDPInBound** |
+    | Name | **Allow-Port_3389** |
 
 1. Connect Virtual machine
 
-1. Within the Remote Desktop session to **az30312a-hv-vm**, in the Server Manager window, click **Local Server**, click the **On** link next to the **IE Enhanced Security Configuration** label, and, in the **IE Enhanced Security Configuration** dialog box, select both **Off** options.
+1. Within the Remote Desktop session, in the Server Manager window, click **Local Server**, click the **On** link next to the **IE Enhanced Security Configuration** label, and, in the **IE Enhanced Security Configuration** dialog box, select both **Off** options.
 
 1. Within the Remote Desktop session, start Internet Explorer, browse to [Windows Server Evaluations](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2019), and download the Windows Server 2019 **VHD** file to the **F:\VHDs** folder (you will need to create it first). 
 
@@ -280,7 +282,7 @@ Hands-on Lab
 
     | Setting | Value | 
     | --- | --- |
-    | Name | **SRV01** | 
+    | Name | **SRVNAME** | 
     | Store the virtual machine in a different location | selected | 
     | Location | **F:\VMs** |
 
@@ -313,6 +315,165 @@ Hands-on Lab
    ```powershell
    Rename-Computer -NewName 'SRV01' -Restart
    ```
+Migrate Hyper-V VMs to Azure
+
+In the Azure portal, search for *Azure Migrate*.
+
+1.  In **Services**, select **Azure Migrate**.
+
+1. In **Overview**, select **Assess and migrate servers**. In **Servers**, select **Create project**.
+. In **Create project**, select the Azure subscription and resource group. Create a resource group if you don't have one.
+
+1. In **Project Details**, specify the project name and the geography in which you want to create the project.
+
+1. Select **Create**.
+
+1. On the **Servers** page > **Windows and Linux servers**, click **Assess and migrate servers**.
+
+1. In **Azure Migrate: Server Assessment, click **Assess**.
+
+1. In **Assess servers** > **Assessment type**, select **Azure VM**.
+
+1. In **Discovery source**:
+Specify a name for the assessment. 
+
+1. Click **View all** to review the assessment properties.
+
+1. In **Assessment properties** > **Target Properties**:
+    - In **Target location**, specify the Azure region to which you want to migrate.
+    - In **Storage type**,
+        - Use performance-based data in the assessment, select **Automatic** for 
+    - In **Reserved Instances**, specify whether you want to use reserve instances for the VM when you migrate it.
+
+1. In **VM Size**:
+ 
+    - In **Sizing criterion**, select if you want to base the assessment on machine configuration data/metadata, or on performance-based data.
+ 
+    - In **VM Series**, specify the Azure VM series you want to consider.
+  
+    - In **Comfort factor**, indicate the buffer you want to use during assessment. This accounts for issues like seasonal usage, short performance history, and likely increases in future usage.  
+   
+9. In **Pricing**:
+    - In **Offer**, specify the Azure offer. Server Assessment estimates the cost for that offer.
+    - In **Currency**, select the billing currency for your account.
+    - In **Discount (%)**, add any subscription-specific discounts you receive on top of the Azure offer. The default setting is 0%.
+    - In **VM Uptime**, specify the duration (days per month/hour per day) that VMs will run.
+ 
+    - In **EA Subscription**, specify whether to take an Enterprise Agreement (EA) subscription discount into account for cost estimation. 
+    - In **Azure Hybrid Benefit**, specify whether you already have a Windows Server license.
+
+10. Click **Save** if you make changes.
+
+11. In **Assess Servers**, click **Next**.
+12. In **Select machines to assess**, select **Create New**, and specify a group name. 
+13. Select the appliance, and select the VMs you want to add to the group. Then click **Next**.
+14. In **Review + create assessment, review the assessment details, and click **Create Assessment** to create the group and run the assessment.
+
+An assessment describes:
+
+- **Azure readiness**: Whether VMs are suitable for migration to Azure.
+- **Monthly cost estimation**: The estimated monthly compute and storage costs for running the VMs in Azure.
+- **Monthly storage cost estimation**: Estimated costs for disk storage after migration.
+
+To view an assessment:
+
+1. In **Servers** > **Azure Migrate: Server Assessment**, click the number next to **Assessments**.
+2. In **Assessments**, select an assessment to open it.
+
+3. Review the assessment summary. You can also edit the assessment properties, or recalculate the assessment.
+
+For migrating Hyper-V VMs, Azure Migrate:Server Migration installs software providers (Microsoft Azure Site Recovery provider and Microsoft Azure Recovery Service agent) on Hyper-V Hosts or cluster nodes. 
+
+1. In the Azure Migrate project > **Servers**, in **Azure Migrate: Server Migration**, click **Discover**.
+2. In **Discover machines** > **Are your machines virtualized?**, select **Yes, with Hyper-V**.
+3. In **Target region**, select the Azure region to which you want to migrate the machines.
+6. Select **Confirm that the target region for migration is region-name**.
+7. Click **Create resources**. This creates an Azure Site Recovery vault in the background.
+    
+8. In **Prepare Hyper-V host servers**, download the Hyper-V Replication provider, and the registration key file.
+
+4. Copy the provider setup file and registration key file to each Hyper-V host (or cluster node) running VMs you want to replicate.
+5. Run the provider setup file on each host, as described in the next procedure.
+6. After installing the provider on hosts, in **Discover machines**, click **Finalize registration**.
+
+It can take up to 15 minutes after finalizing registration until discovered VMs appear in Azure Migrate Server Migration. As VMs are discovered, the **Discovered servers** count rises.
+
+With discovery completed, you can begin replication of Hyper-V VMs to Azure.
+
+1. In the Azure Migrate project > **Servers**, **Azure Migrate: Server Migration**, click **Replicate**.
+2. In **Replicate**, > **Source settings** > **Are your machines virtualized?**, select **Yes, with Hyper-V**. Then click **Next: Virtual machines**.
+3. In **Virtual machines**, select the machines you want to replicate.
+
+4. In **Virtual machines**, search for VMs as needed, and check each VM you want to migrate. Then, click **Next: Target settings**.
+
+5. In **Target settings**, select the target region to which you'll migrate, the subscription, and the resource group in which the Azure VMs will reside after migration.
+
+7. In **Replication Storage Account**, select the Azure Storage account in which replicated data will be stored in Azure.
+
+8. **Virtual Network**, select the Azure VNet/subnet to which the Azure VMs will be joined after migration.
+
+9. In **Availability options**, select:
+    -  Availability Set to place the migrated machine in an Availability Set.
+
+10. In **Azure Hybrid Benefit**:
+      - Select **Yes** 
+
+11. In **Compute**, review the VM name, size, OS disk type, and availability configuration (if selected in the previous step). VMs must conform with [Azure requirements]
+
+    - **VM size**: If you're using assessment recommendations, the VM size dropdown will contain the recommended size.  
+    - **OS disk**: Specify the OS (boot) disk for the VM. The OS disk is the disk that has the operating system bootloader and installer. 
+    - **Availability Set**: If the VM should be in an Azure availability set after migration, specify the set. The set must be in the target resource group you specify for the migration.
+
+12. In **Disks**, specify the VM disks that needs to be replicated to Azure. Then click **Next**.
+
+13. In **Review and start replication**, review the settings, and click **Replicate** to start the initial replication for the servers.
+
+> You can update replication settings any time before replication starts, in **Manage** > **Replicating machines**. Settings can't be changed after replication starts.
+
+- When you click **Replicate** a Start Replication job begins. 
+- When the Start Replication job finishes successfully, the machines begin their initial replication to Azure.
+- After initial replication finishes, delta replication begins. Incremental changes to on-premises disks are periodically replicated to  Azure.
+
+When delta replication begins, you can run a test migration for the VMs, before running a full migration to Azure. We highly recommend that you do this at least once for each machine, before you migrate it.
+
+1. In **Migration goals** > **Servers** > **Azure Migrate: Server Migration**, click **Test migrated servers**.
+
+2. Right-click the VM to test, and click **Test migrate**.
+
+3. In **Test Migration**, select the Azure virtual network in which the Azure VM will be located after the migration. 
+4. The **Test migration** job starts. Monitor the job in the portal notifications.
+5. After the migration finishes, view the migrated Azure VM in **Virtual Machines** in the Azure portal. The machine name has a suffix **-Test**.
+6. After the test is done, right-click the Azure VM in **Replicating machines**, and click **Clean up test migration**.
+
+After you've verified that the test migration works as expected, you can migrate the on-premises machines.
+
+1. In the Azure Migrate project > **Servers** > **Azure Migrate: Server Migration**, click **Replicating servers**.
+
+2. In **Replicating machines**, right-click the VM > **Migrate**.
+
+3. In **Migrate** > **Shut down virtual machines and perform a planned migration with no data loss**, select **Yes** > **OK**.
+
+4. A migration job starts for the VM. Track the job in Azure notifications.
+
+5. After the job finishes, you can view and manage the VM from the **Virtual Machines** page.
+
+## Lab #05 - Azure Storage Blobs (15 minutes)
+
+## Lab #06 - Azure Files (15 minutes)
+
+## Lab #07 - Azure Point-to-site VPN (30 minutes)
+
+## Lab #08 - Azure VNET Peering (15 minutes)
+
+## Lab #09 - Network Security groups (15 minutes)
+
+## Project #01 Hub-spoke Networking 
+
+
+
+
+
+
 
 
 
