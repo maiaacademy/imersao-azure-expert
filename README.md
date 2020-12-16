@@ -2,6 +2,7 @@
 
 Hands-on Lab
 
+## Day 1
 ## Exercise #01 - Azure Calculator (15 minutes)
 
 1. In a browser, navigate to the [Azure Pricing Calculator](https://azure.microsoft.com/en-us/pricing/calculator/) webpage.
@@ -473,7 +474,9 @@ Implement a Hub-spoke topology
 
    ![Screenshot of the Hub-spoke](/AllFiles/Images/IMG02.png)
 
+## Day 2
 
+## Day 3
 
 
 
