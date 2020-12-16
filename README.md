@@ -467,7 +467,11 @@ After you've verified that the test migration works as expected, you can migrate
 
 ## Lab #09 - Network Security groups (15 minutes)
 
-## Project #01 Hub-spoke Networking 
+## Project #01 - Hub-spoke Archicture
+
+Implement a Hub-spoke topology
+
+   ![Screenshot of the Hub-spoke](/AllFiles/Images/IMG02.png)
 
 
 
