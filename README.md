@@ -476,7 +476,11 @@ Implement a Hub-spoke topology
 
 ## Day 2
 
+Waiting
+
 ## Day 3
+
+Waiting
 
 
 
