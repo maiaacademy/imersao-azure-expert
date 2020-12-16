@@ -224,7 +224,98 @@ Hands-on Lab
 
 1. Explore properties to Virtual machine.
 
-## Lab #04 - Virtual Networking
+## Project #01 - Migrate Virtual Machines (60 min)
+
+1. In the Azure portal, open another browser tab, navigate to the [301-nested-vms-in-virtual-network Azure QuickStart template](https://github.com/Azure/azure-quickstart-templates/tree/master/301-nested-vms-in-virtual-network) and select **Deploy to Azure**. This will automatically redirect the browser to the **Hyper-V Host Virtual Machine with nested VMs** blade in the Azure portal.
+
+1. On the **Hyper-V Host Virtual Machine with nested VMs** blade in the Azure portal, specify the following settings (leave others with their default values):
+
+    | Setting | Value | 
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Resource group | **RG-FLN-NESTED** |
+    | Host Public IP Address Name | **VMFLNNESTED-PI** |
+    | Virtual Network Name | **VNET-FLN-NESTED** |
+    | Host Network Interface1Name | **VMFLNNESTED-NIC01** |
+    | Host Network Interface2Name | **VMFLNNESTED-NIC02** |
+    | Host Virtual Machine Name | **VMFLNNESTED** |
+    | Host Admin Username | **admaz** |
+    | Host Admin Password | **Azur3Exp3rt*** |
+
+1. On the **Hyper-V Host Virtual Machine with nested VMs** blade, select **Review + create** and then select **Create**.
+
+    > **Note**: Wait for the deployment to complete. The deployment might take about 10 minutes.
+
+#### Task 2: Configure nested virtualization in the Azure VM
+
+1. In the Azure portal, search for and select **Virtual machines** and, on the **Virtual machines** blade.
+
+1. On the blade, select **Networking**. 
+
+1. On the **Networking** blade, select **VMFLNNESTED-NIC01** and then select **Add inbound port rule**.
+
+    >**Note**: Make sure that you modify the settings of **VMFLNNESTED-NIC01**, which has the public IP address assigned to it.
+
+1. On the **Add inbound security rule** blade, specify the following settings (leave others with their default values) and select **Add**:
+
+    | Setting | Value | 
+    | --- | --- |
+    | Destination port range | **3389** |
+    | Protocol | **Any** |
+    | Name | **AllowRDPInBound** |
+
+1. Connect Virtual machine
+
+1. Within the Remote Desktop session to **az30312a-hv-vm**, in the Server Manager window, click **Local Server**, click the **On** link next to the **IE Enhanced Security Configuration** label, and, in the **IE Enhanced Security Configuration** dialog box, select both **Off** options.
+
+1. Within the Remote Desktop session, start Internet Explorer, browse to [Windows Server Evaluations](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2019), and download the Windows Server 2019 **VHD** file to the **F:\VHDs** folder (you will need to create it first). 
+
+1. Within the Remote Desktop session, start **Hyper-V Manager**. 
+
+1. In the **Hyper-V Manager** console,select **New** and, in the cascading menu, select **Virtual Machine**. This will start the **New Virtual Machine Wizard**. 
+
+1. On the **Before You Begin** page of the **New Virtual Machine Wizard**, select **Next >**.
+
+1. On the **Specify Name and Location** page of the **New Virtual Machine Wizard**, specify the following settings and select **Next >**:
+
+    | Setting | Value | 
+    | --- | --- |
+    | Name | **SRV01** | 
+    | Store the virtual machine in a different location | selected | 
+    | Location | **F:\VMs** |
+
+    >**Note**: Make sure to create the **F:\VMs** folder.
+
+1. On the **Specify Generation** page of the **New Virtual Machine Wizard**, ensure that the **Generation 1** option is selected and select **Next >**:
+
+1. On the **Assign Memory** page of the **New Virtual Machine Wizard**, set **Startup memory** to **4096** and select **Next >**.
+
+1. On the **Configure Networking** page of the **New Virtual Machine Wizard**, in the **Connection** drop-down list select **NestedSwitch** and select **Next >**.
+
+1. On the **Connect Virtual Hard Disk** page of the **New Virtual Machine Wizard**, select the option **Use an existing virtual hard disk**, set location to the VHD file you downloaded to the **F:\VHDs** folder, and select **Next >**.
+
+1. On the **Summary** page of the **New Virtual Machine Wizard**, select **Finish**.
+
+1. In the **Hyper-V Manager** console, select the newly created virtual machine and select **Start**. 
+
+1. In the **Hyper-V Manager** console, verify that the virtual machine is running and select **Connect**. 
+
+1. In the Virtual Machine Connection window, on the **Hi there** page, select **Next**. 
+
+1. In the Virtual Machine Connection window, on the **License terms** page, select **Accept**. 
+
+1. In the Virtual Machine Connection window, on the **Customize settings** page, set the password of the built-in Administrator account to **Azur3Exp3rt*** and select **Finish**. 
+
+1. In the Virtual Machine Connection window, sign in by using the newly set password.
+
+1. In the Virtual Machine Connection window, start Windows PowerShell and, in the **Administrator: Windows PowerShell** window run the following to set the computer name. 
+
+   ```powershell
+   Rename-Computer -NewName 'SRV01' -Restart
+   ```
+
+
+
 
 
 
