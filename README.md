@@ -170,7 +170,7 @@ Hands-on Lab
     | Size | **Standard_B2s** |
     | Username | **admaz** |
     | Password | **Azur3Exp3rt*** |
-    | Public inbound ports | **RDP (3389)** |
+    | Public inbound ports | **RDP (3389) and HTTP (80)** |
     | Would you like to use an existing Windows Server license? | **No** |
     | | |
 
@@ -190,7 +190,7 @@ Hands-on Lab
     | Public IP | **VMNAME1-PI** |
     | NIC network security group | **Basic** |
     | Accelerated networking | **Off** |
-	| Inbound Ports | **RDP (3389)** |
+	| Inbound Ports | **RDP (3389)** and HTTP (80)|
     | Place this virtual machine behind an existing load balancing solution? | **No** |
     | | |
 
@@ -201,9 +201,7 @@ Hands-on Lab
     | Boot diagnostics | **Enable with custom storage account** |
     | Diagnostics storage account | create new |
     | Properties stora account | Name: saflndiag, Account kind: StorageV2, Performance: Standard, Replication: Locally-redundant-storage (LRS) |
-    | Enable auto-shutdown | off
-      
-    >**Note**: Record the name of diagnostics storage account. You will use it in the next task. 
+    | Enable auto-shutdown | off    
     
 1. Click **Next: Advanced >**, on the **Advanced** tab of the **Create a virtual machine** blade, review the available settings without modifying any of them, and click **Review + Create**.
 
@@ -225,9 +223,155 @@ Hands-on Lab
 
 1. Connect Virtual machine and start disk.
 
+1. Install the Web-Server feature and rename computer name in the virtual machine by running the following command in the **Administrator Windows PowerShell** command prompt. You can copy and paste this command.
+
+   ```powershell
+   # Install Web-server feature
+   Install-WindowsFeature -name Web-Server -IncludeManagementTools
+   # Rename computer name
+   Rename-Computer -NewName "VNAME" -Restart
+   ```
+1. Back in the portal, navigate back to the Overview blade of myVM and, use the Click to clipboard button to copy the public IP address, open a new browser tab, paste the public IP address into the URL text box, and press the Enter key to browse to it.
+
 1. Explore properties to Virtual machines.
 
-## Lab #04 - Migrate Virtual Machines (60 min)
+## Lab #04 - Azure Storage Blobs (15 minutes)
+
+1. In the Azure portal, search for and select **Storage accounts** and, on the **Storage accounts** blade, select **+ Add**.
+
+1. On the **Basics** tab of the **Create storage account** blade, specify the following settings (leave others with their default values):
+
+    | Setting | Value | 
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Resource group | the name of a new resource group **storageaccountname** |
+    | Storage account name | any globally unique name between 3 and 24 in length consisting of letters and digits |
+    | Location | the name of an Azure region where you can create an Azure Storage account  |
+    | Performance | **Standard** |
+    | Account kind | **StorageV2 (general purpose v2)** |
+    | Replication | **Locally redundant storage (LRS)** |
+
+1. Select **Next: Networking >**, on the **Networking** tab of the **Create storage account** blade, review the available options, accept the default option **Public endpoint (all networks}** and select **Next: Data protection >**.
+
+1. On the **Data protection** tab of the **Create storage account** blade, review the available options, accept the defaults, select **Next: Advanced >**.
+
+1. On the **Advanced** tab of the **Create storage account** blade, review the available options, accept the defaults, select **Review + Create**, wait for the validation process to complete and select **Create**.
+
+1. On the Storage account blade, in the Blob service section, click Containers.
+
+1. Select **Create Blob Container**, and use the empty text box to set the container name to **container1**.
+
+1. Select **container1**, in the **container1** pane, select **Upload**, and in the drop-down list, select **Upload Files**.
+
+1. In the **Upload Files** window, select the ellipsis button next to the **Selected files** label, in the **Choose files to upload** window, select **files**, and select **Open**.
+
+1. Back in the **Upload Files** window, select **Upload**
+
+1. Within the Remote Desktop session to **Virtual machine**, in the Server Manager window, select **Local Server**, select the **On** link next to the **IE Enhanced Security Configuration** label, and, in the **IE Enhanced Security Configuration** dialog box, select both **Off** options.
+
+1. Within the Remote Desktop session, start Internet Explorer and navigate to the download page of [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)
+
+1. Within the Remote Desktop session, download and install Azure Storage Explorer with the default settings. 
+
+1. Navigate to the [Azure portal](https://portal.azure.com), and sign-in by providing credentials of the user account with the Owner role in the subscription you are using in this lab.
+
+1. Navigate to the blade of the newly created storage account, select **Access keys** and review the settings of the target blade.
+
+1. On the storage account blade, select **Shared access signature** and review the settings of the target blade.
+
+1. On the resulting blade, specify the following settings (leave others with their default values):
+
+    | Setting | Value | 
+    | --- | --- |
+    | Allowed services | **Blob** |
+    | Allowed resource types | **Service**, **Container** and **Object** |
+    | Allowed permissions | **Read**, **List** |
+    | Blob versioning permissions | disabled |
+    | Start | 24 hours before the current time in your current time zone | 
+    | End | 24 hours after the current time in your current time zone |
+    | Allowed protocols | **HTTPS only** |
+    | Signing key | **key1** |
+
+1. Select **Generate SAS and connection string**.
+
+1. Copy the value of **Blob service SAS URL** into Clipboard.
+
+1. Within the Remote Desktop session, start Azure Storage Explorer. 
+
+1. In the Azure Storage Explorer window, in the **Connect to Azure Storage** window, select **Use a shared access signature (SAS) URI** and select **Next**.
+
+1. In the **Attach with SAS URI** window, in the **Display name** text box, type **storageaccountname**, in the **URI** text box, paste the value you copied into Clipboard, and select **Next**. 
+
+    >**Note**: This should automatically populate the value of **Blob endpoint** text box.
+
+1. In the **Connection Summary** window, select **Connect**. 
+
+1. Select **Storage account" and "Blob containers", Open and download uploaded files
+
+1. Leave the Azure Storage Explorer window open.
+
+## Lab #05 - Azure Files (15 minutes)
+
+1. In the Azure portal, navigate back to the blade of the storage account you created in the first task of this lab and, in the **File service** section, click **File shares**.
+
+1. Click **+ File share** and create a file share with the following settings:
+
+    | Setting | Value |
+    | --- | --- |
+    | Name | **fs-azureexpert** |
+    | Quota | **1024** |
+    | Tiers | hot |
+
+1. Click the newly created file share and click **Connect**.
+
+1. On the **Connect** blade, ensure that the **Windows** tab is selected, and click **Copy to clipboard**.
+
+1. In the Azure portal, search for and select **Virtual machines**, and, in the list of virtual machines.
+
+1. In the Virtual Machine Connection window, start Windows PowerShell and, in the **Administrator: Windows PowerShell** window run the following to set map share. 
+
+1. Verify that the script completed successfully. 
+
+1. Connect share and upload files.
+
+## Lab #06 - Azure Point-to-site VPN (30 minutes)
+
+
+
+## Lab #07 - Azure VNET Peering (15 minutes)
+
+
+
+## Lab #08 - Network Security groups (15 minutes)
+
+
+
+## Project #01 - Hub-spoke Archicture
+
+Implement a Hub-spoke topology
+
+   ![Screenshot of the Hub-spoke](/AllFiles/Images/IMG02.png)
+
+**Important Notes**
+- Gateway VPN on the hub network
+- Virtual machines on the spoke network running Ubuntu server
+- VNET Peering connection in the hub to allow gateway transit
+- VNET Peering connection in each spoke to use remote gateways
+- VNET Peering connections to allow forwarded 
+traffic
+- Custom Route tables to address prefix "0.0.0.0" and next hop type to virtual applicance
+- Network rule Azure Firewall all traffic
+- DNAT rules Azure Firewall to destination ports RDP (3389).
+
+References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke)
+
+## Day 2
+
+Waiting
+
+## Day 3
+
+## Lab # - Azure Site Recovery (60 minutes)
 
 1. In the Azure portal, open another browser tab, navigate to the [301-nested-vms-in-virtual-network Azure QuickStart template](https://github.com/Azure/azure-quickstart-templates/tree/master/301-nested-vms-in-virtual-network) and select **Deploy to Azure**. This will automatically redirect the browser to the **Hyper-V Host Virtual Machine with nested VMs** blade in the Azure portal.
 
@@ -316,172 +460,6 @@ Hands-on Lab
    ```powershell
    Rename-Computer -NewName 'SRV01' -Restart
    ```
-Migrate Hyper-V VMs to Azure
-
-In the Azure portal, search for *Azure Migrate*.
-
-1.  In **Services**, select **Azure Migrate**.
-
-1. In **Overview**, select **Assess and migrate servers**. In **Servers**, select **Create project**.
-. In **Create project**, select the Azure subscription and resource group. Create a resource group if you don't have one.
-
-1. In **Project Details**, specify the project name and the geography in which you want to create the project.
-
-1. Select **Create**.
-
-1. On the **Servers** page > **Windows and Linux servers**, click **Assess and migrate servers**.
-
-1. In **Azure Migrate: Server Assessment, click **Assess**.
-
-1. In **Assess servers** > **Assessment type**, select **Azure VM**.
-
-1. In **Discovery source**:
-Specify a name for the assessment. 
-
-1. Click **View all** to review the assessment properties.
-
-1. In **Assessment properties** > **Target Properties**:
-    - In **Target location**, specify the Azure region to which you want to migrate.
-    - In **Storage type**,
-        - Use performance-based data in the assessment, select **Automatic** for 
-    - In **Reserved Instances**, specify whether you want to use reserve instances for the VM when you migrate it.
-
-1. In **VM Size**:
- 
-    - In **Sizing criterion**, select if you want to base the assessment on machine configuration data/metadata, or on performance-based data.
- 
-    - In **VM Series**, specify the Azure VM series you want to consider.
-  
-    - In **Comfort factor**, indicate the buffer you want to use during assessment. This accounts for issues like seasonal usage, short performance history, and likely increases in future usage.  
-   
-9. In **Pricing**:
-    - In **Offer**, specify the Azure offer. Server Assessment estimates the cost for that offer.
-    - In **Currency**, select the billing currency for your account.
-    - In **Discount (%)**, add any subscription-specific discounts you receive on top of the Azure offer. The default setting is 0%.
-    - In **VM Uptime**, specify the duration (days per month/hour per day) that VMs will run.
- 
-    - In **EA Subscription**, specify whether to take an Enterprise Agreement (EA) subscription discount into account for cost estimation. 
-    - In **Azure Hybrid Benefit**, specify whether you already have a Windows Server license.
-
-10. Click **Save** if you make changes.
-
-11. In **Assess Servers**, click **Next**.
-12. In **Select machines to assess**, select **Create New**, and specify a group name. 
-13. Select the appliance, and select the VMs you want to add to the group. Then click **Next**.
-14. In **Review + create assessment, review the assessment details, and click **Create Assessment** to create the group and run the assessment.
-
-An assessment describes:
-
-- **Azure readiness**: Whether VMs are suitable for migration to Azure.
-- **Monthly cost estimation**: The estimated monthly compute and storage costs for running the VMs in Azure.
-- **Monthly storage cost estimation**: Estimated costs for disk storage after migration.
-
-To view an assessment:
-
-1. In **Servers** > **Azure Migrate: Server Assessment**, click the number next to **Assessments**.
-2. In **Assessments**, select an assessment to open it.
-
-3. Review the assessment summary. You can also edit the assessment properties, or recalculate the assessment.
-
-For migrating Hyper-V VMs, Azure Migrate:Server Migration installs software providers (Microsoft Azure Site Recovery provider and Microsoft Azure Recovery Service agent) on Hyper-V Hosts or cluster nodes. 
-
-1. In the Azure Migrate project > **Servers**, in **Azure Migrate: Server Migration**, click **Discover**.
-2. In **Discover machines** > **Are your machines virtualized?**, select **Yes, with Hyper-V**.
-3. In **Target region**, select the Azure region to which you want to migrate the machines.
-6. Select **Confirm that the target region for migration is region-name**.
-7. Click **Create resources**. This creates an Azure Site Recovery vault in the background.
-    
-8. In **Prepare Hyper-V host servers**, download the Hyper-V Replication provider, and the registration key file.
-
-4. Copy the provider setup file and registration key file to each Hyper-V host (or cluster node) running VMs you want to replicate.
-5. Run the provider setup file on each host, as described in the next procedure.
-6. After installing the provider on hosts, in **Discover machines**, click **Finalize registration**.
-
-It can take up to 15 minutes after finalizing registration until discovered VMs appear in Azure Migrate Server Migration. As VMs are discovered, the **Discovered servers** count rises.
-
-With discovery completed, you can begin replication of Hyper-V VMs to Azure.
-
-1. In the Azure Migrate project > **Servers**, **Azure Migrate: Server Migration**, click **Replicate**.
-2. In **Replicate**, > **Source settings** > **Are your machines virtualized?**, select **Yes, with Hyper-V**. Then click **Next: Virtual machines**.
-3. In **Virtual machines**, select the machines you want to replicate.
-
-4. In **Virtual machines**, search for VMs as needed, and check each VM you want to migrate. Then, click **Next: Target settings**.
-
-5. In **Target settings**, select the target region to which you'll migrate, the subscription, and the resource group in which the Azure VMs will reside after migration.
-
-7. In **Replication Storage Account**, select the Azure Storage account in which replicated data will be stored in Azure.
-
-8. **Virtual Network**, select the Azure VNet/subnet to which the Azure VMs will be joined after migration.
-
-9. In **Availability options**, select:
-    -  Availability Set to place the migrated machine in an Availability Set.
-
-10. In **Azure Hybrid Benefit**:
-      - Select **Yes** 
-
-11. In **Compute**, review the VM name, size, OS disk type, and availability configuration (if selected in the previous step). VMs must conform with [Azure requirements]
-
-    - **VM size**: If you're using assessment recommendations, the VM size dropdown will contain the recommended size.  
-    - **OS disk**: Specify the OS (boot) disk for the VM. The OS disk is the disk that has the operating system bootloader and installer. 
-    - **Availability Set**: If the VM should be in an Azure availability set after migration, specify the set. The set must be in the target resource group you specify for the migration.
-
-12. In **Disks**, specify the VM disks that needs to be replicated to Azure. Then click **Next**.
-
-13. In **Review and start replication**, review the settings, and click **Replicate** to start the initial replication for the servers.
-
-> You can update replication settings any time before replication starts, in **Manage** > **Replicating machines**. Settings can't be changed after replication starts.
-
-- When you click **Replicate** a Start Replication job begins. 
-- When the Start Replication job finishes successfully, the machines begin their initial replication to Azure.
-- After initial replication finishes, delta replication begins. Incremental changes to on-premises disks are periodically replicated to  Azure.
-
-When delta replication begins, you can run a test migration for the VMs, before running a full migration to Azure. We highly recommend that you do this at least once for each machine, before you migrate it.
-
-1. In **Migration goals** > **Servers** > **Azure Migrate: Server Migration**, click **Test migrated servers**.
-
-2. Right-click the VM to test, and click **Test migrate**.
-
-3. In **Test Migration**, select the Azure virtual network in which the Azure VM will be located after the migration. 
-4. The **Test migration** job starts. Monitor the job in the portal notifications.
-5. After the migration finishes, view the migrated Azure VM in **Virtual Machines** in the Azure portal. The machine name has a suffix **-Test**.
-6. After the test is done, right-click the Azure VM in **Replicating machines**, and click **Clean up test migration**.
-
-After you've verified that the test migration works as expected, you can migrate the on-premises machines.
-
-1. In the Azure Migrate project > **Servers** > **Azure Migrate: Server Migration**, click **Replicating servers**.
-
-2. In **Replicating machines**, right-click the VM > **Migrate**.
-
-3. In **Migrate** > **Shut down virtual machines and perform a planned migration with no data loss**, select **Yes** > **OK**.
-
-4. A migration job starts for the VM. Track the job in Azure notifications.
-
-5. After the job finishes, you can view and manage the VM from the **Virtual Machines** page.
-
-## Lab #05 - Azure Storage Blobs (15 minutes)
-
-## Lab #06 - Azure Files (15 minutes)
-
-## Lab #07 - Azure Point-to-site VPN (30 minutes)
-
-## Lab #08 - Azure VNET Peering (15 minutes)
-
-## Lab #09 - Network Security groups (15 minutes)
-
-## Project #01 - Hub-spoke Archicture
-
-Implement a Hub-spoke topology
-
-   ![Screenshot of the Hub-spoke](/AllFiles/Images/IMG02.png)
-
-## Day 2
-
-Waiting
-
-## Day 3
-
-Waiting
-
 
 
 
