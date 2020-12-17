@@ -334,9 +334,7 @@ Hands-on Lab
 
 1. Connect share and upload files.
 
-## Lab #06 - Azure Point-to-site VPN (30 minutes)
-
-## Lab #07 - Azure VNET Peering (15 minutes)
+## Lab #06 - Azure VNET Peering (30 minutes)
 
 1. In the Azure portal, search for and select **Virtual networks**, and, on the **Virtual networks** blade, click **+ Add**.
 
@@ -425,7 +423,7 @@ Hands-on Lab
    ```
 1. Examine the output of the command and verify that the connection was successful.
 
-## Lab #08 - Network Security groups (15 minutes)
+## Lab #07 - Network Security groups (15 minutes)
 
 1. In the Azure portal, navigate back to the resource group blade, and in the list of its resources, click **Virtual machine**.
 
@@ -459,6 +457,19 @@ Hands-on Lab
     | Priority | **200** |
     | Name | **Allow-Port_80-443** |
 
+1. Add an inbound rule with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Source | **Any** |
+    | Source port ranges | * |
+    | Destination | **Virtual Network** |
+    | Destination port ranges | * |
+    | Protocol | **TCP** |
+    | Action | **Allow** |
+    | Priority | **4096** |
+    | Name | **Deny-VNET-All** |
+
 1. On the **NSG-WEB** network security group blade, in the **Settings** section, click **Network interfaces** and then click **+ Associate**.
 
 1. Associate the **NSG_WEB** network security group with the **Network interface**.
@@ -478,7 +489,7 @@ Hands-on Lab
 
 1. Examine the navegate was successful.
 
-## Project #01 - Hub-spoke Archicture
+## Project #01 - Hub-spoke Archicture (60 minutes)
 
 Implement a Hub-spoke topology
 
@@ -499,98 +510,45 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 
 ## Day 2
 
-Waiting
+## Lab #01 - Azure Load Balancer (30 minutes)
+
+## Lab #02 - Azure Virtual Machine Scale Sets (30 minutes)
+
+## Lab #03 - Azure App Service (30 minutes)
+
+## Lab #04 - Azure Container Instances (20 minutes)
+
+## Lab #05 - Azure Kubernetes Service (30 minutes)
+
+## Lab #06 - Azure Resource Manager (30 minutes)
+
+## Project #02 - Multicontainer application to Kubernetes (60 minutes)
+
+1. In a browser, navigate to the [Azure Kubernetes Service Workshop](https://docs.microsoft.com/en-us/learn/modules/aks-workshop/) webpage and start lab.
+
+2. Application architecture.
+
+   ![Screenshot of the application archicture](/AllFiles/Images/IMG03.png)
 
 ## Day 3
 
-## Lab # - Azure Site Recovery (60 minutes)
+## Lab #01 - Azure Backup (30 minutes)
 
-1. In the Azure portal, open another browser tab, navigate to the [301-nested-vms-in-virtual-network Azure QuickStart template](https://github.com/Azure/azure-quickstart-templates/tree/master/301-nested-vms-in-virtual-network) and select **Deploy to Azure**. This will automatically redirect the browser to the **Hyper-V Host Virtual Machine with nested VMs** blade in the Azure portal.
+## Lab #02 - Azure AD (20 minutes)
 
-1. On the **Hyper-V Host Virtual Machine with nested VMs** blade in the Azure portal, specify the following settings (leave others with their default values):
+## Lab #03 - RBAC (15 minutes) 
 
-    | Setting | Value | 
-    | --- | --- |
-    | Subscription | the name of the Azure subscription you are using in this lab |
-    | Resource group | **RGNAME-NESTED** |
-    | Host Public IP Address Name | **HOSTNAME-PI** |
-    | Virtual Network Name | **VNETNAME-NESTED** |
-    | Host Network Interface1Name | **HOSTNAME-NIC01** |
-    | Host Network Interface2Name | **HOSTNAME-NIC02** |
-    | Host Virtual Machine Name | **HOSTNAME** |
-    | Host Admin Username | **admaz** |
-    | Host Admin Password | **Azur3Exp3rt*** |
+## Lab #04 - Azure Monitor (30 minutes)
 
-1. On the **Hyper-V Host Virtual Machine with nested VMs** blade, select **Review + create** and then select **Create**.
+## Lab #05 - Azure SQL Database (30 minutes)
 
-    > **Note**: Wait for the deployment to complete. The deployment might take about 10 minutes.
+## Project #03 - Azure Site Recovery (60 minutes)
 
-1. In the Azure portal, search for and select **Virtual machines** and, on the **Virtual machines** blade.
+1. In a browser, navigate to the [Disaster Recovery with Azure Site Recovery](https://docs.microsoft.com/en-us/learn/modules/protect-infrastructure-with-site-recovery/) webpage and start lab.
 
-1. On the blade, select **Networking**. 
+2. Disaster Recovery architecture.
 
-1. On the **Networking** blade, select **HOSTNAME-NIC01** and then select **Add inbound port rule**.
-
-    >**Note**: Make sure that you modify the settings of **HOSTNAME-NIC01**, which has the public IP address assigned to it.
-
-1. On the **Add inbound security rule** blade, specify the following settings (leave others with their default values) and select **Add**:
-
-    | Setting | Value | 
-    | --- | --- |
-    | Destination port range | **3389** |
-    | Protocol | **Any** |
-    | Name | **Allow-Port_3389** |
-
-1. Connect Virtual machine
-
-1. Within the Remote Desktop session, in the Server Manager window, click **Local Server**, click the **On** link next to the **IE Enhanced Security Configuration** label, and, in the **IE Enhanced Security Configuration** dialog box, select both **Off** options.
-
-1. Within the Remote Desktop session, start Internet Explorer, browse to [Windows Server Evaluations](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2019), and download the Windows Server 2019 **VHD** file to the **F:\VHDs** folder (you will need to create it first). 
-
-1. Within the Remote Desktop session, start **Hyper-V Manager**. 
-
-1. In the **Hyper-V Manager** console,select **New** and, in the cascading menu, select **Virtual Machine**. This will start the **New Virtual Machine Wizard**. 
-
-1. On the **Before You Begin** page of the **New Virtual Machine Wizard**, select **Next >**.
-
-1. On the **Specify Name and Location** page of the **New Virtual Machine Wizard**, specify the following settings and select **Next >**:
-
-    | Setting | Value | 
-    | --- | --- |
-    | Name | **SRVNAME** | 
-    | Store the virtual machine in a different location | selected | 
-    | Location | **F:\VMs** |
-
-    >**Note**: Make sure to create the **F:\VMs** folder.
-
-1. On the **Specify Generation** page of the **New Virtual Machine Wizard**, ensure that the **Generation 1** option is selected and select **Next >**:
-
-1. On the **Assign Memory** page of the **New Virtual Machine Wizard**, set **Startup memory** to **4096** and select **Next >**.
-
-1. On the **Configure Networking** page of the **New Virtual Machine Wizard**, in the **Connection** drop-down list select **NestedSwitch** and select **Next >**.
-
-1. On the **Connect Virtual Hard Disk** page of the **New Virtual Machine Wizard**, select the option **Use an existing virtual hard disk**, set location to the VHD file you downloaded to the **F:\VHDs** folder, and select **Next >**.
-
-1. On the **Summary** page of the **New Virtual Machine Wizard**, select **Finish**.
-
-1. In the **Hyper-V Manager** console, select the newly created virtual machine and select **Start**. 
-
-1. In the **Hyper-V Manager** console, verify that the virtual machine is running and select **Connect**. 
-
-1. In the Virtual Machine Connection window, on the **Hi there** page, select **Next**. 
-
-1. In the Virtual Machine Connection window, on the **License terms** page, select **Accept**. 
-
-1. In the Virtual Machine Connection window, on the **Customize settings** page, set the password of the built-in Administrator account to **Azur3Exp3rt*** and select **Finish**. 
-
-1. In the Virtual Machine Connection window, sign in by using the newly set password.
-
-1. In the Virtual Machine Connection window, start Windows PowerShell and, in the **Administrator: Windows PowerShell** window run the following to set the computer name. 
-
-   ```powershell
-   Rename-Computer -NewName 'SRV01' -Restart
-   ```
-
+   ![Screenshot of the application archicture](/AllFiles/Images/IMG04.png)
 
 
 
