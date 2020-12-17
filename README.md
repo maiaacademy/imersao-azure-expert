@@ -508,6 +508,8 @@ traffic
 
 References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke)
 
+1. End of day 1.
+
 ## Day 2
 
 ## Lab #01 - Azure Load Balancer (30 minutes)
@@ -530,6 +532,8 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 
    ![Screenshot of the application archicture](/AllFiles/Images/IMG03.png)
 
+1. End of day 2.
+
 ## Day 3
 
 ## Lab #01 - Azure Backup (30 minutes)
@@ -549,6 +553,8 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 2. Disaster Recovery architecture.
 
    ![Screenshot of the application archicture](/AllFiles/Images/IMG04.png)
+
+1. End of day 3.
 
 
 
