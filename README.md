@@ -127,8 +127,8 @@ Hands-on Lab
     | Setting | Value |
     | --- | --- |
     | Subscription | the name of the Azure subscription you will be using in this lab |
-    | Resource Group | the name of a resource group **RG-FLN-Network** |
-    | Name | **VNETNAME** |
+    | Resource Group | the name of a resource group **RG-FLN-NETWORK** |
+    | Name | **VNETNAME-HUB** |
     | Region | the name of any Azure region available in the subscription you will use in this lab |
     | IPv4 address space | **10.1.0.0/16** |
     | Subnet name | **Default** |
@@ -336,15 +336,147 @@ Hands-on Lab
 
 ## Lab #06 - Azure Point-to-site VPN (30 minutes)
 
-
-
 ## Lab #07 - Azure VNET Peering (15 minutes)
 
+1. In the Azure portal, search for and select **Virtual networks**, and, on the **Virtual networks** blade, click **+ Add**.
 
+1. Create a virtual network with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you will be using in this lab |
+    | Resource Group | the name of a resource group **RG-FLN-NETWORK-SPOKE1** |
+    | Name | **VNETNAME-SPOKE1** |
+    | Region | west us 2 |
+    | IPv4 address space | **10.10.0.0/16** |
+    | Subnet name | **Default** |
+    | Subnet address range | **10.10.1.0/24** |
+     | | |
+      
+1. Accept the defaults and click **Review and Create**. Let validation occur, and hit **Create** again to submit your deployment.
+
+1. Once the deployment completes browse for **Virtual Networks** in the portal search bar. Within **Virtual networks** blade, click on the newly created virtual network.
+
+1. In the Azure portal, search for and select **Virtual machines**
+
+1. On the **Virtual machines**, click **Add** and create a new Virtual machine, on the **VNETNAME-SPOKE1**.
+
+1. In the Azure portal, search for and select **Virtual networks**.
+
+1. In the list of virtual networks, click **VNETNAME-SPOKE1**.
+
+1. On the **VNETNAME-SPOKE1** virtual network blade, in the **Settings** section, click **Peerings** and then click **+ Add**.
+
+1. Specify the following settings (leave others with their default values) and click **Add**:
+
+    | Setting | Value|
+    | --- | --- |
+    | This virtual network: Peering link name | **To-Hub** |
+    | This virtual network: Traffic to remote virtual network | **Allow (default)** |
+    | This virtual network: Traffic forwarded from remote virtual network | **Allow (default)** |
+    | Virtual network gateway | **None** |
+    | Remote virtual network: Peering link name | **To-Spoke1** |    
+    | Virtual network deployment model | **Resource manager** |
+    | I know my resource ID | unselected |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Virtual network | **VNETNAME-HUB** |
+    | Traffic to remote virtual network | **Allow (default)** |
+    | Traffic forwarded from remote virtual network | **None** |
+    | Virtual network gateway | **Use this virtual network's gateway** |
+
+1. On the **VNETNAME-HUB** virtual network blade, in the **Settings** section, click **Peerings** and then click **+ Add**.
+
+1. Add a peering with the following settings (leave others with their default values):
+
+    | Setting | Value|
+    | --- | --- |
+    | This virtual network: Peering link name | **To-Spoke1** |
+    | This virtual network: Traffic to remote virtual network | **Allow (default)** |
+    | This virtual network: Traffic forwarded from remote virtual network | ****Allow (default)**** |
+    | Virtual network gateway | **None*** |
+    | Remote virtual network: Peering link name | **To-Hub** |    
+    | Virtual network deployment model | **Resource manager** |
+    | I know my resource ID | unselected |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Virtual network | **VNETNAME-HUB** |
+    | Traffic to remote virtual network | **Allow (default)** |
+    | Traffic forwarded from remote virtual network | **Allow (default)** |
+    | Virtual network gateway | **None** |
+    
+  1. In the Azure portal, search for and select **Virtual machines** on the Virtual Network Hub.
+
+1. On the **Virtual machine** blade, click **Connect**, in the drop-down menu, click **RDP**, on the **Connect with RDP** blade, click **Download RDP File** and follow the prompts to start the Remote Desktop session.
+
+1. Within the Remote Desktop session to **Virtual machine**, right-click the **Start** button and, in the right-click menu, click **Windows PowerShell (Admin)**.
+
+1. In the Windows PowerShell console window, run the following to test connectivity to **VNET-SPOKE1**.
+
+   ```pwsh
+   Test-NetConnection -ComputerName PRIVATEIPADDRESS-VNET-HUB -Port 3389 -InformationLevel 'Detailed'
+   ```
+    >**Note**: The test uses TCP 3389 since this is this port is allowed by default by operating system firewall. 
+
+1. Examine the output of the command and verify that the connection was successful.
+
+1. In the Windows PowerShell console window, run the following to test connectivity to **VMNAME-HUB** 
+
+   ```pwsh
+   Test-NetConnection -ComputerName PRIVATEIPADDRESS-VNET-SPOKE -Port 3389 -InformationLevel 'Detailed'
+   ```
+1. Examine the output of the command and verify that the connection was successful.
 
 ## Lab #08 - Network Security groups (15 minutes)
 
+1. In the Azure portal, navigate back to the resource group blade, and in the list of its resources, click **Virtual machine**.
 
+1. On the **Virtual machine** blade, click **Connect**, in the drop-down menu, click **RDP**, on the **Connect with RDP** blade, click **Download RDP File** and follow the prompts to start the Remote Desktop session.
+
+1. In the Azure portal, search for and select **Network security groups**, and, on the **Network security groups** blade, click **+ Add**.
+
+1. Create a network security group with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Resource Group | **RGName-VMS** |
+    | Name | **NSG-WEB** |
+    | Region | the name of the Azure region where you deployed all other resources in this lab |
+
+1. On the deployment blade, click **Go to resource** to open the **NSG-WEB** network security group blade. 
+
+1. On the **NSG-WEB** network security group blade, in the **Settings** section, click **Inbound security rules**. 
+
+1. Add an inbound rule with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Source | **Any** |
+    | Source port ranges | * |
+    | Destination | **Any** |
+    | Destination port ranges | **80,443** |
+    | Protocol | **TCP** |
+    | Action | **Allow** |
+    | Priority | **200** |
+    | Name | **Allow-Port_80-443** |
+
+1. On the **NSG-WEB** network security group blade, in the **Settings** section, click **Network interfaces** and then click **+ Associate**.
+
+1. Associate the **NSG_WEB** network security group with the **Network interface**.
+
+    >**Note**: It may take up to 5 minutes for the rules from the newly created Network Security Group to be applied to the Network Interface Card.
+
+1. Navigate back to computer.
+
+1. In the Virtual Machine Connection window, start Windows PowerShell and, in the **Administrator: Windows PowerShell** window run the following to set connection test. 
+
+   ```powershell
+   Test-NetConnection -ComputerName PUBLICIPADDRESS-VM -Port 80 -InformationLevel 'Detailed'
+   ```
+1. Examine the output of the command and verify that the connection was successful.
+
+1. Within the computer, start Internet Explorer and navigate to **IPPublic-VM**.
+
+1. Examine the navegate was successful.
 
 ## Project #01 - Hub-spoke Archicture
 
@@ -392,8 +524,6 @@ Waiting
 1. On the **Hyper-V Host Virtual Machine with nested VMs** blade, select **Review + create** and then select **Create**.
 
     > **Note**: Wait for the deployment to complete. The deployment might take about 10 minutes.
-
-#### Task 2: Configure nested virtualization in the Azure VM
 
 1. In the Azure portal, search for and select **Virtual machines** and, on the **Virtual machines** blade.
 
