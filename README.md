@@ -397,8 +397,14 @@ Hands-on Lab
     | Traffic to remote virtual network | **Allow (default)** |
     | Traffic forwarded from remote virtual network | **Allow (default)** |
     | Virtual network gateway | **None** |
+
+1. At the top of the Azure portal, enter the name of a **VMNAMESPOKE1** that is in the running state, in the search box. When the name of the VM appears in the search results, select it.
+
+1. Under Settings on the left, select **Networking**, and navigate to the network interface resource by selecting its name. View network interfaces.
+
+1. On the left, select **Effective routes**. The effective routes for a network interface are shown.
     
-  1. In the Azure portal, search for and select **Virtual machines** on the Virtual Network Hub.
+1. In the Azure portal, search for and select **Virtual machines** on the Virtual Network Hub.
 
 1. On the **Virtual machine** blade, click **Connect**, in the drop-down menu, click **RDP**, on the **Connect with RDP** blade, click **Download RDP File** and follow the prompts to start the Remote Desktop session.
 
@@ -460,6 +466,14 @@ Hands-on Lab
 
     >**Note**: It may take up to 5 minutes for the rules from the newly created Network Security Group to be applied to the Network Interface Card.
 
+1. Go to the Azure portal to view your **Network security groups**. Search for and select Network security groups.
+
+1. Select the name of your Network security group.
+
+In the menu bar of the network security group, under Settings, you can view the Inbound security rules, Outbound security rules, Network interfaces, and Subnets that the network security group is associated to.
+
+1. Under **Support + troubleshooting**, you can view Effective security rules.
+
 1. Navigate back to computer.
 
 1. In the Virtual Machine Connection window, start Windows PowerShell and, in the **Administrator: Windows PowerShell** window run the following to set connection test. 
@@ -473,7 +487,7 @@ Hands-on Lab
 
 1. Examine the navegate was successful.
 
-## Project #01 - Hub-spoke Archicture (60 minutes)
+## Project #01A - Hub-spoke Archicture (60 minutes)
 
 Implement a Hub-spoke topology
 
@@ -492,6 +506,18 @@ traffic
 
 References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke)
 
+## Project #01B - Migrate servers
+
+1. In a browser, navigate to the [Line-of-business Application migration](https://github.com/microsoft/MCW-Line-of-business-application-migration/tree/master/Hands-on%20lab) webpage and start lab.
+
+1. Start before to the [Prerequisites Hands-on lab](https://github.com/microsoft/MCW-Line-of-business-application-migration/blob/master/Hands-on%20lab/Before%20the%20HOL%20-%20Line-of-business%20application%20migration.md) and create environment.
+
+1. After completing the prerequisites, start [Application migration](https://github.com/microsoft/MCW-Line-of-business-application-migration/blob/master/Hands-on%20lab/HOL%20step-by%20step%20-%20Line-of-business%20application%20migration.md) webpage and start lab.
+
+**Important Notes**
+- There is no need to do **Exercise 2**.
+- And also to do Task 7,8,9 andn 10 in **Exercise 3"** 
+
 1. End of day 1.
 
 ## Day 2
@@ -502,7 +528,7 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 
 ## Lab #03 - Azure App Service (30 minutes)
 
-## Lab #04 - Azure Container Instances (20 minutes)
+## Lab #04 - Azure Container Instances (30 minutes)
 
 ## Lab #05 - Azure Kubernetes Service (30 minutes)
 
@@ -522,9 +548,9 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 
 ## Lab #01 - Azure Backup (30 minutes)
 
-## Lab #02 - Azure AD (20 minutes)
+## Lab #02 - Azure AD (30 minutes)
 
-## Lab #03 - RBAC (15 minutes) 
+## Lab #03 - RBAC (20 minutes) 
 
 ## Lab #04 - Azure Monitor (30 minutes)
 
@@ -538,10 +564,9 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 
    ![Screenshot of the application archicture](/AllFiles/Images/IMG04.png)
 
-1. End of day 3.
+1. End of day 3 and **Imersao Azure Azure Expert**.
 
-
-
+1. Continue in the **Mentoria Arquito Cloud**.
 
 
 
