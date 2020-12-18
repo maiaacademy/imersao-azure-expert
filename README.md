@@ -3,7 +3,7 @@
 Hands-on Lab
 
 ## Day 1
-## Exercise #01 - Azure Calculator (15 minutes)
+## Exercise #01 - Azure Calculator (20 minutes)
 
 1. In a browser, navigate to the [Azure Pricing Calculator](https://azure.microsoft.com/en-us/pricing/calculator/) webpage.
 
@@ -112,7 +112,7 @@ Hands-on Lab
     |Tags| environment: resource, project: azureexpert |
     | | |
 
-1. Repeat and create the Resources groups name "RGNAME-Networking" and "RGNAME-Storage".
+1. Repeat and create the Resources groups name "RGNAME-NETWORKING" and "RGNAME-STORAGE".
 
 1. Click **Review + Create** and then click **Create**.
 
@@ -161,7 +161,7 @@ Hands-on Lab
     | --- | --- |
     | Subscription | the name of the Azure subscription you will be using in this lab |
     | Resource group | the name of a new resource group **RGNAME-VMS** |
-    | Virtual machine name | **VMNAME** |
+    | Virtual machine name | **VMNAME01** |
     | Region | select one of the regions that support availability zones and where you can provision Azure virtual machines | 
     | Availability options | **Availability sets** |
     | Availability set | **AS-VM** |
@@ -187,7 +187,7 @@ Hands-on Lab
     | --- | --- |
     | Virtual Network | **VNETNAME** |
     | Subnet | **FrontEnd** |
-    | Public IP | **VMNAME1-PI** |
+    | Public IP | **VMNAME01-PI** |
     | NIC network security group | **Basic** |
     | Accelerated networking | **Off** |
 	| Inbound Ports | **RDP (3389)** and HTTP (80)|
@@ -215,7 +215,7 @@ Hands-on Lab
 
     | Setting | Value | 
     | --- | --- |
-    | Disk name | **VMNAME-DataDisk01** |
+    | Disk name | **VMNAME01-DataDisk01** |
     | Source type | **None** |
     | Account type | **Premium SSD** |
     | Size | **50 GiB** |
@@ -223,19 +223,16 @@ Hands-on Lab
 
 1. Connect Virtual machine and start disk.
 
-1. Install the Web-Server feature and rename computer name in the virtual machine by running the following command in the **Administrator Windows PowerShell** command prompt. You can copy and paste this command.
+1. Install the Web-Server feature in the virtual machine by running the following command in the **Administrator Windows PowerShell** command prompt. You can copy and paste this command.
 
    ```powershell
-   # Install Web-server feature
    Install-WindowsFeature -name Web-Server -IncludeManagementTools
-   # Rename computer name
-   Rename-Computer -NewName "VNAME" -Restart
    ```
 1. Back in the portal, navigate back to the Overview blade of myVM and, use the Click to clipboard button to copy the public IP address, open a new browser tab, paste the public IP address into the URL text box, and press the Enter key to browse to it.
 
 1. Explore properties to Virtual machines.
 
-## Lab #04 - Azure Storage Blobs (15 minutes)
+## Lab #04 - Azure Storage Blobs (20 minutes)
 
 1. In the Azure portal, search for and select **Storage accounts** and, on the **Storage accounts** blade, select **+ Add**.
 
@@ -244,7 +241,7 @@ Hands-on Lab
     | Setting | Value | 
     | --- | --- |
     | Subscription | the name of the Azure subscription you are using in this lab |
-    | Resource group | the name of a new resource group **storageaccountname** |
+    | Resource group | the name of a new resource group **storageaccountname01** |
     | Storage account name | any globally unique name between 3 and 24 in length consisting of letters and digits |
     | Location | the name of an Azure region where you can create an Azure Storage account  |
     | Performance | **Standard** |
@@ -300,7 +297,7 @@ Hands-on Lab
 
 1. In the Azure Storage Explorer window, in the **Connect to Azure Storage** window, select **Use a shared access signature (SAS) URI** and select **Next**.
 
-1. In the **Attach with SAS URI** window, in the **Display name** text box, type **storageaccountname**, in the **URI** text box, paste the value you copied into Clipboard, and select **Next**. 
+1. In the **Attach with SAS URI** window, in the **Display name** text box, type **storageaccountname01**, in the **URI** text box, paste the value you copied into Clipboard, and select **Next**. 
 
     >**Note**: This should automatically populate the value of **Blob endpoint** text box.
 
@@ -343,7 +340,7 @@ Hands-on Lab
     | Setting | Value |
     | --- | --- |
     | Subscription | the name of the Azure subscription you will be using in this lab |
-    | Resource Group | the name of a resource group **RG-FLN-NETWORK-SPOKE1** |
+    | Resource Group | the name of a resource group **RGNAME-SPOKE1** |
     | Name | **VNETNAME-SPOKE1** |
     | Region | west us 2 |
     | IPv4 address space | **10.10.0.0/16** |
@@ -357,7 +354,7 @@ Hands-on Lab
 
 1. In the Azure portal, search for and select **Virtual machines**
 
-1. On the **Virtual machines**, click **Add** and create a new Virtual machine, on the **VNETNAME-SPOKE1**.
+1. On the **Virtual machines**, click **Add** and create a new Virtual machine, on the **VMNAMESPOKE1**.
 
 1. In the Azure portal, search for and select **Virtual networks**.
 
@@ -410,7 +407,7 @@ Hands-on Lab
 1. In the Windows PowerShell console window, run the following to test connectivity to **VNET-SPOKE1**.
 
    ```pwsh
-   Test-NetConnection -ComputerName PRIVATEIPADDRESS-VNET-HUB -Port 3389 -InformationLevel 'Detailed'
+   Test-NetConnection -ComputerName PRIVATEIPADDRESS-VM-HUB -Port 3389 -InformationLevel 'Detailed'
    ```
     >**Note**: The test uses TCP 3389 since this is this port is allowed by default by operating system firewall. 
 
@@ -419,11 +416,11 @@ Hands-on Lab
 1. In the Windows PowerShell console window, run the following to test connectivity to **VMNAME-HUB** 
 
    ```pwsh
-   Test-NetConnection -ComputerName PRIVATEIPADDRESS-VNET-SPOKE -Port 3389 -InformationLevel 'Detailed'
+   Test-NetConnection -ComputerName PRIVATEIPADDRESS-VM-SPOKE -Port 3389 -InformationLevel 'Detailed'
    ```
 1. Examine the output of the command and verify that the connection was successful.
 
-## Lab #07 - Network Security groups (15 minutes)
+## Lab #07 - Network Security groups (20 minutes)
 
 1. In the Azure portal, navigate back to the resource group blade, and in the list of its resources, click **Virtual machine**.
 
@@ -436,7 +433,7 @@ Hands-on Lab
     | Setting | Value |
     | --- | --- |
     | Subscription | the name of the Azure subscription you are using in this lab |
-    | Resource Group | **RGName-VMS** |
+    | Resource Group | **RGNAME-VMS** |
     | Name | **NSG-WEB** |
     | Region | the name of the Azure region where you deployed all other resources in this lab |
 
@@ -457,19 +454,6 @@ Hands-on Lab
     | Priority | **200** |
     | Name | **Allow-Port_80-443** |
 
-1. Add an inbound rule with the following settings (leave others with their default values):
-
-    | Setting | Value |
-    | --- | --- |
-    | Source | **Any** |
-    | Source port ranges | * |
-    | Destination | **Virtual Network** |
-    | Destination port ranges | * |
-    | Protocol | **TCP** |
-    | Action | **Allow** |
-    | Priority | **4096** |
-    | Name | **Deny-VNET-All** |
-
 1. On the **NSG-WEB** network security group blade, in the **Settings** section, click **Network interfaces** and then click **+ Associate**.
 
 1. Associate the **NSG_WEB** network security group with the **Network interface**.
@@ -485,7 +469,7 @@ Hands-on Lab
    ```
 1. Examine the output of the command and verify that the connection was successful.
 
-1. Within the computer, start Internet Explorer and navigate to **IPPublic-VM**.
+1. Within the computer, start Internet Explorer and navigate to **PUBLICIPADDPRESS-VM**.
 
 1. Examine the navegate was successful.
 
