@@ -549,15 +549,15 @@ Line-of-bussiness (LOB) Application migration.
 
 ## Lab #01 - Azure Backup (30 minutes)
 
-## Lab #02 - Azure AD (30 minutes)
+## Lab #02 - Azure AD (20 minutes)
 
-## Lab #03 - RBAC (20 minutes) 
+## Lab #03 - Azure RBAC and Azure Policy (20 minutes) 
 
 ## Lab #04 - Azure Monitor (30 minutes)
 
 ## Lab #05 - Azure SQL Database (30 minutes)
 
-## Project #03 - Azure Site Recovery (60 minutes)
+## OPTIONAL: Project #03 - Azure Site Recovery (60 minutes)
 
 1. In a browser, navigate to the [Disaster Recovery with Azure Site Recovery](https://docs.microsoft.com/en-us/learn/modules/protect-infrastructure-with-site-recovery/) webpage and start lab.
 
