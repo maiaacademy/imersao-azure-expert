@@ -127,7 +127,7 @@ Hands-on Lab
     | Setting | Value |
     | --- | --- |
     | Subscription | the name of the Azure subscription you will be using in this lab |
-    | Resource Group | the name of a resource group **RG-FLN-NETWORK** |
+    | Resource Group | the name of a resource group **RGNAME-NETWORK** |
     | Name | **VNETNAME-HUB** |
     | Region | the name of any Azure region available in the subscription you will use in this lab |
     | IPv4 address space | **10.1.0.0/16** |
@@ -162,7 +162,7 @@ Hands-on Lab
     | Subscription | the name of the Azure subscription you will be using in this lab |
     | Resource group | the name of a new resource group **RGNAME-VMS** |
     | Virtual machine name | **VMNAME01** |
-    | Region | select one of the regions that support availability zones and where you can provision Azure virtual machines | 
+    | Region | select same region the Resouce group | 
     | Availability options | **Availability sets** |
     | Availability set | **AS-VM** |
     | Image | **Windows Server 2019 Datacenter - Gen1** |
@@ -200,7 +200,7 @@ Hands-on Lab
     | --- | --- |
     | Boot diagnostics | **Enable with custom storage account** |
     | Diagnostics storage account | create new |
-    | Properties stora account | Name: saflndiag, Account kind: StorageV2, Performance: Standard, Replication: Locally-redundant-storage (LRS) |
+    | Properties storage account | Name: saflndiag, Account kind: StorageV2, Performance: Standard, Replication: Locally-redundant-storage (LRS) |
     | Enable auto-shutdown | off    
     
 1. Click **Next: Advanced >**, on the **Advanced** tab of the **Create a virtual machine** blade, review the available settings without modifying any of them, and click **Review + Create**.
@@ -266,7 +266,7 @@ Hands-on Lab
 
 1. Within the Remote Desktop session to **Virtual machine**, in the Server Manager window, select **Local Server**, select the **On** link next to the **IE Enhanced Security Configuration** label, and, in the **IE Enhanced Security Configuration** dialog box, select both **Off** options.
 
-1. Within the Remote Desktop session, start Internet Explorer and navigate to the download page of [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)
+1. Within the Remote Desktop session, start Browser and navigate to the download page of [Azure Storage Explorer](https://azure.microsoft.com/en-us/features/storage-explorer/)
 
 1. Within the Remote Desktop session, download and install Azure Storage Explorer with the default settings. 
 
@@ -483,7 +483,7 @@ In the menu bar of the network security group, under Settings, you can view the 
    ```
 1. Examine the output of the command and verify that the connection was successful.
 
-1. Within the computer, start Internet Explorer and navigate to **PUBLICIPADDPRESS-VM**.
+1. Within the computer, start Browser and navigate to **PUBLICIPADDPRESS-VM**.
 
 1. Examine the navegate was successful.
 
@@ -508,15 +508,16 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 
 ## Project #01B - Migrate servers
 
-1. In a browser, navigate to the [Line-of-business Application migration](https://github.com/microsoft/MCW-Line-of-business-application-migration/tree/master/Hands-on%20lab) webpage and start lab.
+Line-of-bussiness (LOB) Application migration.
+
+1. In a browser, navigate to the [LOB Application migration](https://github.com/microsoft/MCW-Line-of-business-application-migration/tree/master/Hands-on%20lab) webpage and start lab.
 
 1. Start before to the [Prerequisites Hands-on lab](https://github.com/microsoft/MCW-Line-of-business-application-migration/blob/master/Hands-on%20lab/Before%20the%20HOL%20-%20Line-of-business%20application%20migration.md) and create environment.
 
 1. After completing the prerequisites, start [Application migration](https://github.com/microsoft/MCW-Line-of-business-application-migration/blob/master/Hands-on%20lab/HOL%20step-by%20step%20-%20Line-of-business%20application%20migration.md) webpage and start lab.
 
 **Important Notes**
-- There is no need to do **Exercise 2**.
-- And also to do Task 7,8,9 andn 10 in **Exercise 3"** 
+- There is no need to do **Exercise 2** and also to do Task 7, 8, 9 and 10 in **Exercise 3**. 
 
 1. End of day 1.
 
