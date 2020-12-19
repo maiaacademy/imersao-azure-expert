@@ -624,6 +624,44 @@ Test open Browser to IP Address the Virtual machines.
 
 1. Wait for the load balancing rule to be created, click **Overview**, and note the value of the **Public IP address**.
 
+1. In the Azure portal, search for and select **Network security groups**, and, on the **Network security groups** blade, click **+ Add**.
+
+1. Create a network security group with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Resource Group | **RGNAME-NETWORK** |
+    | Name | **NSG-WEB** |
+    | Region | the name of the Azure region where you deployed all other resources in this lab |
+
+1. On the deployment blade, click **Go to resource** to open the **NSG-LB-WEB** network security group blade. 
+
+1. On the **NSG-LB-WEB** network security group blade, in the **Settings** section, click **Inbound security rules**. 
+
+1. Add an inbound rule with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Source | **Any** |
+    | Source port ranges | * |
+    | Destination | **Any** |
+    | Destination port ranges | **80** |
+    | Protocol | **TCP** |
+    | Action | **Allow** |
+    | Priority | **100** |
+    | Name | **Allow-Port_80** |
+
+1. On the **NSG-LB-WEB** network security group blade, in the **Settings** section, click **Network interfaces** and then click **+ Associate**.
+
+1. Associate the **NSG-LB-WEB** network security group with the Network interfaces **VMWEB01 and VMWEB02**.
+
+    >**Note**: It may take up to 5 minutes for the rules from the newly created Network Security Group to be applied to the Network Interface Card.
+
+1. Go to the Azure portal to view your **Network security groups**. Search for and select Network security groups.
+
+1. Select the name of your Network security group.
+
 1. Start browser window and navigate to the IP address you identified in the previous step.
 
 1. Verify that the browser window displays the message **Static page and servername**.
