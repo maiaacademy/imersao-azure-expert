@@ -543,9 +543,16 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 1. Install the Web-Server feature and configure Static page in the virtual machines by running the following command in the **Administrator Windows PowerShell ISE** command prompt. You can copy and paste this command.
 
    ```powershell
-Install-WindowsFeature -name Web-Server -IncludeManagementTools
-Remove-item C:\inetpub\wwwroot\iisstart.htm
-Add-Content -Path "C:\inetpub\wwwroot\iisstart.htm" -Value $("Azure Expert VM is running " + $env:computername)   ```
+   # Install Web server
+   Install-WindowsFeature -name Web-Server -IncludeManagementTools
+   # Remove default Web page
+   Remove-item  C:\inetpub\wwwroot\iisstart.htm
+   # Configure new Web page
+   Add-Content -Path "C:\inetpub\wwwroot\iisstart.htm" -Value $("Azure Expert VM is running " + $env:computername)
+   ```
+
+**Note**
+Test open Browser to IP Address the Virtual machines.
 
 1. In the Azure portal, search and select **Load balancers** and, on the **Load balancers** blade, click **+ Add**.
 
