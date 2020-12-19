@@ -410,10 +410,10 @@ Hands-on Lab
 
 1. Within the Remote Desktop session to **Virtual machine**, right-click the **Start** button and, in the right-click menu, click **Windows PowerShell (Admin)**.
 
-1. In the Windows PowerShell console window, run the following to test connectivity to **VNET-SPOKE1**.
+1. In the Windows PowerShell console window, run the following to test connectivity to **VNETNAME-SPOKE1**.
 
    ```pwsh
-   Test-NetConnection -ComputerName PRIVATEIPADDRESS-VM-HUB -Port 3389 -InformationLevel 'Detailed'
+   Test-NetConnection -ComputerName IPADDRESS-VM-HUB -Port 3389 -InformationLevel 'Detailed'
    ```
     >**Note**: The test uses TCP 3389 since this is this port is allowed by default by operating system firewall. 
 
@@ -422,7 +422,7 @@ Hands-on Lab
 1. In the Windows PowerShell console window, run the following to test connectivity to **VMNAME-HUB** 
 
    ```pwsh
-   Test-NetConnection -ComputerName PRIVATEIPADDRESS-VM-SPOKE -Port 3389 -InformationLevel 'Detailed'
+   Test-NetConnection -ComputerName IPADDRESS-VM-SPOKE -Port 3389 -InformationLevel 'Detailed'
    ```
 1. Examine the output of the command and verify that the connection was successful.
 
@@ -439,7 +439,7 @@ Hands-on Lab
     | Setting | Value |
     | --- | --- |
     | Subscription | the name of the Azure subscription you are using in this lab |
-    | Resource Group | **RGNAME-VMS** |
+    | Resource Group | **RGNAME-NETWORK** |
     | Name | **NSG-WEB** |
     | Region | the name of the Azure region where you deployed all other resources in this lab |
 
@@ -470,7 +470,9 @@ Hands-on Lab
 
 1. Select the name of your Network security group.
 
-In the menu bar of the network security group, under Settings, you can view the Inbound security rules, Outbound security rules, Network interfaces, and Subnets that the network security group is associated to.
+**Note:** If necessary desatch associated Network security groups.
+
+1. In the menu bar of the network security group, under Settings, you can view the Inbound security rules, Outbound security rules, Network interfaces, and Subnets that the network security group is associated to.
 
 1. Under **Support + troubleshooting**, you can view Effective security rules.
 
@@ -487,7 +489,7 @@ In the menu bar of the network security group, under Settings, you can view the 
 
 1. Examine the navegate was successful.
 
-## Project #01A - Hub-spoke Archicture (60 minutes)
+## Project #01 - Hub-spoke Archicture (60 minutes)
 
 Implement a Hub-spoke topology
 
@@ -506,24 +508,123 @@ traffic
 
 References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/hybrid-networking/hub-spoke)
 
-## Project #01B - Migrate servers
-
-Line-of-bussiness (LOB) Application migration.
-
-1. In a browser, navigate to the [LOB Application migration](https://github.com/microsoft/MCW-Line-of-business-application-migration/tree/master/Hands-on%20lab) webpage and start lab.
-
-1. Start before to the [Prerequisites Hands-on lab](https://github.com/microsoft/MCW-Line-of-business-application-migration/blob/master/Hands-on%20lab/Before%20the%20HOL%20-%20Line-of-business%20application%20migration.md) and create environment.
-
-1. After completing the prerequisites, start [Application migration](https://github.com/microsoft/MCW-Line-of-business-application-migration/blob/master/Hands-on%20lab/HOL%20step-by%20step%20-%20Line-of-business%20application%20migration.md) webpage and start lab.
-
-**Important Notes**
-- There is no need to do **Exercise 2** and also to do Task 7, 8, 9 and 10 in **Exercise 3**. 
-
 1. End of day 1.
 
 ## Day 2
 
 ## Lab #01 - Azure Load Balancer (30 minutes)
+
+1. Sign in to the [Azure portal](http://portal.azure.com).
+
+1. In the Azure portal, search for and select **Virtual machines** and, on the **Virtual machines** blade, click **+ Add**.
+
+1. On the **Basics** tab of the **Create a virtual machine** blade, specify the following settings (leave others with their default values):
+
+    | Setting | Value | 
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you will be using in this lab |
+    | Resource group | the name of a new resource group **RGNAME-VMSM** |
+    | Virtual machine name | **VMWEB01** and **VMWEB02** |
+    | Region | select one of the regions that support availability zones and where you can provision Azure virtual machines | 
+    | Availability options | **Availability zone** |
+    | Availability zone | **1** and **2** |
+    | Image | **Windows Server 2019 Datacenter - Gen1** |
+    | Azure Spot instance | **No** |
+    | Size | **Standard B2s** |
+    | Username | **admazz** |
+    | Password | **Azur3Exp3rt*** |
+    | Public inbound ports | **None** |
+    | Would you like to use an existing Windows Server license? | **No** |
+
+1. Check two Virtual machines create successful.
+
+1. Connect Virtual machines.
+
+1. Install the Web-Server feature and configure Static page in the virtual machines by running the following command in the **Administrator Windows PowerShell ISE** command prompt. You can copy and paste this command.
+
+   ```powershell
+Install-WindowsFeature -name Web-Server -IncludeManagementTools
+
+Remove-item C:\inetpub\wwwroot\iisstart.htm
+
+Add-Content -Path "C:\inetpub\wwwroot\iisstart.htm" -Value $("Azure Expert VM is running " + $env:computername)
+   ```
+
+1. In the Azure portal, search and select **Load balancers** and, on the **Load balancers** blade, click **+ Add**.
+
+1. Create a load balancer with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Resource group | the name of a new resource group **RGNAME-NETWORK** |
+    | Name | **ALBNAME** |
+    | Region| name of the Azure region into which you deployed all other resources in this lab |
+    | Type | **Public** |
+    | SKU | **Standard** |
+    | Public IP address | **Create new** |
+    | Public IP address name | **ALBNAME-PI** |
+    | Availability zone | **Zone-redundant** |
+    | Add a public IPv6 address | **No** |
+
+    > **Note**: Wait for the Azure load balancer to be provisioned. This should take about 2 minutes. 
+
+1. On the deployment blade, click **Go to resource**.
+
+1. On the **ALBNAME** load balancer blade, click **Backend pools** and click **+ Add**.
+
+1. Add a backend pool with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Name | **BP-WEB** |
+    | Virtual network | **VNETNAME** |
+    | IP version | **IPv4** |
+    | Virtual machine | **VMWEB01** | 
+    | Virtual machine IP address | associate IP address |
+    | Virtual machine | **VMWEB02** |
+    | Virtual machine IP address | associate IP address |
+
+1. Wait for the backend pool to be created, click **Health probes**, and then click **+ Add**.
+
+1. Add a health probe with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Name | **HP-WEB** |
+    | Protocol | **TCP** |
+    | Port | **80** |
+    | Interval | **5** |
+    | Unhealthy threshold | **2** |
+
+1. Wait for the health probe to be created, click **Load balancing rules**, and then click **+ Add**.
+
+1. Add a load balancing rule with the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | --- |
+    | Name | **LBR-WEB** |
+    | IP Version | **IPv4** |
+    | Protocol | **TCP** |
+    | Port | **80** |
+    | Backend port | **80** |
+    | Backend pool | **BPNAME** |
+    | Health probe | **HPNAME** |
+    | Session persistence | **None** |
+    | Idle timeout (minutes) | **4** |
+    | TCP reset | **Disabled** |
+    | Floating IP (direct server return) | **Disabled** |
+    | Use outbound rules to provide backend pool members access to the internet. | **Enabled** |
+
+1. Wait for the load balancing rule to be created, click **Overview**, and note the value of the **Public IP address**.
+
+1. Start browser window and navigate to the IP address you identified in the previous step.
+
+1. Verify that the browser window displays the message **Static page and servername**.
+
+1. In Virtual machines, select **VMWEB01 or VMWEB02** and click **Stop**. 
+
+1. Open another browser window but this time by using InPrivate mode and verify whether the target vm changes (as indicated by the message).
 
 ## Lab #02 - Azure Virtual Machine Scale Sets (30 minutes)
 
