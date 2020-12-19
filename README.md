@@ -544,11 +544,8 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
 
    ```powershell
 Install-WindowsFeature -name Web-Server -IncludeManagementTools
-
 Remove-item C:\inetpub\wwwroot\iisstart.htm
-
-Add-Content -Path "C:\inetpub\wwwroot\iisstart.htm" -Value $("Azure Expert VM is running " + $env:computername)
-   ```
+Add-Content -Path "C:\inetpub\wwwroot\iisstart.htm" -Value $("Azure Expert VM is running " + $env:computername)   ```
 
 1. In the Azure portal, search and select **Load balancers** and, on the **Load balancers** blade, click **+ Add**.
 
