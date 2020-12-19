@@ -536,6 +536,8 @@ References: [Hub-spoke network topology](https://docs.microsoft.com/en-us/azure/
     | Public inbound ports | **None** |
     | Would you like to use an existing Windows Server license? | **No** |
 
+1. Complete deploy Virtual Machines
+
 1. Check two Virtual machines create successful.
 
 1. Connect Virtual machines.
@@ -632,7 +634,162 @@ Test open Browser to IP Address the Virtual machines.
 
 ## Lab #02 - Azure Virtual Machine Scale Sets (30 minutes)
 
+1. Log in to the **Azure portal** at https://portal.azure.com.
+
+1. Type **Scale set** in the search box. In the results, under **Marketplace**, select **Virtual machine scale sets**. Select **Create** on the **Virtual machine scale sets** page, which will open the **Create a virtual machine scale set** page.
+
+1. In the **Basics** tab, under **Project details**, make sure the correct subscription is selected and then choose to **Create new** resource group. Type **RGNAME-VMS** for the name and then select **OK**.
+
+1. Type **VMMSSWEB** as the name for your scale 
+set.
+
+1. In **Region**, select a region that is close to your area.
+
+1. Leave the default value of **ScaleSet VMs** for **Orchestration mode**.
+1. Select a marketplace image for **Image**.
+
+1. Enter your desired username, and password.
+
+1. Select **Next** to move the the other pages. 
+
+1. Leave the defaults for the **Instance** and **Disks** pages.
+
+1. On the **Networking** page, under **Load balancing**, select **Yes** to put the scale set instances behind a load balancer. 
+
+1. In **Load balancing options**, select **Azure load balancer**.
+1. In **Select a load balancer**, select **ALBNAME** that you created earlier.
+
+1. For **Select a backend pool**, select **Create new**, type **BP-VMMSS*, then select **Create**.
+
+1. When you are done, select **Review + create**. 
+
+1. After it passes validation, select **Create** to deploy the scale set.
+
+1. In a **Browser**, navigate to the Public IP Address the VMSS.
+
 ## Lab #03 - Azure App Service (30 minutes)
+
+1. Sign in to the [**Azure portal**](http://portal.azure.com).
+
+1. In the Azure portal, search for and select **App services**, and, on the **App Services** blade, click **+ Add**.
+
+1. On the **Basics** tab of the **Web App** blade, specify the following settings (leave others with their default values):
+
+    | Setting | Value |
+    | --- | ---|
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Resource group | the name of a new resource group **RGNAME** |
+    | Web app name | any globally unique name |
+    | Publish | **Code** |
+    | Runtime stack | **PHP 7.3** |
+    | Operating system | **Windows** |
+    | Region | the name of an Azure region where you can provision Azure web apps |
+    | App service plan | accept the default configuration |
+
+1. Click **Next : Monitoring >**, on the **Monitoring** tab of the **Web App** blade, set the **Enable Application Insights** switch to **No**, click **Review + create**, and then click **Create**. 
+
+    >**Note**: Typically, you would want to enable **Application Insights**, however, its functionality is not used in this lab.
+
+    >**Note**: Wait until the web app is created before you proceed to the next task. This should take about a minute. 
+
+1. On the deployment blade, click **Go to resource**.
+
+1. On the blade of the newly deployed web app, click the **URL** link to display the default web page in a new browser tab.
+
+1. Close the new browser tab and, back in the Azure portal, in the **Deployment** section of the web app blade, click **Deployment slots**. 
+
+    >**Note**: The web app, at this point, has a single deployment slot labeled **PRODUCTION**. 
+
+1. Click **+ Add slot**, and add a new slot with the following settings: 
+
+    | Setting | Value |
+    | --- | ---|
+    | Name | **staging** |
+    | Clone settings from | **Do not clone settings**|
+
+1. Back on the **Deployment slots** blade of the web app, click the entry representing the newly created staging slot. 
+
+    >**Note**: This will open the blade displaying the properties of the staging slot. 
+
+1. Review the staging slot blade and note that its URL differs from the one assigned to the production slot.
+
+1. On the staging deployment slot blade, in the **Deployment** section, click **Deployment Center**.
+
+    >**Note:** Make sure you are on the staging slot blade (rather than the production slot).
+
+1. In the **Continuous Deployment (CI/CD)** section, select **Local Git**, and then click **Continue**.
+
+1. Select **App Service build service**, click **Continue**, and then click **Finish**. 
+
+1. Copy the resulting **Git Clone Url** to Notepad.
+
+    >**Note:** You will need the Git Clone Url value in the next task of this lab.
+
+1. Click **Deployment Credentials** toolbar icon to display **Deployment Credentials** pane. 
+
+1. Click **User credentials**.
+
+1. Complete the required information, and then click **Save Credentials**. 
+
+    | Setting | Value |
+    | --- | ---|
+    | User name | any unique name (must not contain `@` character) |
+    | Password | any password that satisfies complexity requirements |
+    
+    >**Note:** The password must be at least eight characters long, with two of the following three elements: letters, numbers, and non-alphanumeric characters.
+
+    >**Note:** You will need these credentials in the next task of this lab.
+
+1. In the Azure portal, open the **Azure Cloud Shell** by clicking on the icon in the top right of the Azure Portal.
+
+1. If prompted to select either **Bash** or **PowerShell**, select **PowerShell**. 
+
+    >**Note**: If this is the first time you are starting **Cloud Shell** and you are presented with the **You have no storage mounted** message, select the subscription you are using in this lab, and click **Create storage**. 
+
+1. From the Cloud Shell pane, run the following to clone the remote repository containing the code for the web app.
+
+   ```pwsh
+   git clone https://github.com/Azure-Samples/php-docs-hello-world
+   ```
+ 
+1. From the Cloud Shell pane, run the following to set the current location to the newly created clone of the local repository containing the sample web app code.
+
+   ```
+   Set-Location -Path $HOME/php-docs-hello-world/
+   ```
+
+1. From the Cloud Shell pane, run the following to add the remote git (make sure to replace the `[deployment_user_name]` and `[git_clone_url]` placeholders with the value of the **Deployment Credentials** user name and **Git Clone Url**, respectively, which you identified in previous task):
+
+   ```
+   git remote add [deployment_user_name] [git_clone_url]
+   ```
+
+    >**Note**: The value following `git remote add` does not have to match the **Deployment Credentials** user name, but has to be unique
+
+1. From the Cloud Shell pane, run the following to push the sample web app code from the local repository to the Azure web app staging deployment slot (make sure to replace the `[deployment_user_name]` placeholder with the value of the **Deployment Credentials** user name, which you identified in previous task):
+   ```
+   git push [deployment_user_name] master
+   ```
+
+1. If prompted to authenticate, type the `[deployment_user_name]` and the corresponding password (which you set in the previous task).
+
+1. Close the Cloud Shell pane.
+
+1. On the staging slot blade, click **Overview** and then click the **URL** link to display the default web page in a new browser tab.
+
+1. Verify that the browser page displays the **Hello World!** message and close the new tab.
+
+In this task, you will swap the staging slot with the production slot
+
+1. Navigate back to the blade displaying the production slot of the web app.
+
+1. In the **Deployment** section, click **Deployment slots** and then, click **Swap** toolbar icon.
+
+1. On the **Swap** blade, review the default settings and click **Swap**. 
+
+1. Click **Overview** on the production slot blade of the web app and then click the **URL** link to display the web site home page in a new browser tab.
+
+1. Verify the default web page has been replaced with the **Hello World!** page. 
 
 ## Lab #04 - Azure Container Instances (30 minutes)
 
