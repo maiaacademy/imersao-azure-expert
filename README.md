@@ -1310,7 +1310,7 @@ In this task, you will swap the staging slot with the production slot
 
 ## Lab #03 - Azure RBAC (20 minutes) 
 
-## Lab #04 - Azure RBAC (20 minutes) 
+## Lab #04 - Azure Policy (30 minutes) 
 
 ## Lab #05 - Azure Monitor (30 minutes)
 
