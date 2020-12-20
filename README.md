@@ -1413,7 +1413,7 @@ In this task, you will swap the staging slot with the production slot
 
 1. End of day 3 and **Imersao Azure Azure Expert**.
 
-1. Continue in the **Mentoria Arquito Cloud**.
+1. Continue in the **Mentoria Arquiteto Cloud**.
 
 
 
