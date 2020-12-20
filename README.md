@@ -1304,7 +1304,7 @@ In this task, you will swap the staging slot with the production slot
 
 1. Click **No members selected**.
 
-1. From the **Add members** blade, search and select the **GS-AzureExpert** appears in the list of user members.
+1. From the **Add members** blade, search and select the **AzureExpert** appears in the list of user members.
 
 1. Enable MFA to users [Manual Leires](https://1drv.ms/p/s!AqofFXIc7oj5gqZUTUsIuxogr96vRQ)
 
