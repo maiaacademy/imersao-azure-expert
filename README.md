@@ -1512,7 +1512,10 @@ In the Azure portal, navigate back to the **Monitor** blade, click **Logs**.
 
     >**Note**: You might need to wait a few minutes before the update data becomes available.
 
-## Lab #06 - Azure SQL Database (30 minutes)
+## Project #03 - Azure SQL Database (45 minutes)
+
+1. In a browser, navigate to the [Deploy and configure servers, instances, and databases for Azure SQL](https://docs.microsoft.com/en-us/learn/modules/azure-sql-deploy-configure/) webpage and start lab.
+
 
 1. End of day 3 and **Imersao Azure Azure Expert**.
 
