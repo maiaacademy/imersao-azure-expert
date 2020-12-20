@@ -1230,21 +1230,91 @@ In this task, you will swap the staging slot with the production slot
 
 1. On the **VMNAME** Backup Item blade, click **Backup now**, accept the default value in the **Retain Backup Till** drop-down list, and click **OK**.
 
-## Lab #02 - Azure AD (20 minutes)
+ >**Note**: Do not wait for the backup to complete but instead proceed.
 
-## Lab #03 - Azure RBAC (20 minutes) 
-
-## Lab #04 - Azure Monitor (30 minutes)
-
-## Lab #05 - Azure SQL Database (30 minutes)
-
-## OPTIONAL: Project #03 - Azure Site Recovery (60 minutes)
+## Project #03 - Azure Site Recovery (60 minutes)
 
 1. In a browser, navigate to the [Disaster Recovery with Azure Site Recovery](https://docs.microsoft.com/en-us/learn/modules/protect-infrastructure-with-site-recovery/) webpage and start lab.
 
 2. Disaster Recovery architecture.
 
    ![Screenshot of the application archicture](/AllFiles/Images/IMG04.png)
+
+## Lab #02 - Azure AD (20 minutes)
+
+1. In the Azure portal, search for and select **Azure Active Directory**.
+
+1. Click **+ Create a tenant** and specify the following setting:
+
+    | Setting | Value |
+    | --- | --- |
+    | Directory type | **Azure Active Directory** |
+    | Organization name | **Azure Expert** |
+    | Initial domain name | any valid DNS name consisting of lower case letters and digits and starting with a letter | 
+    | Country/Region | **United States** |
+
+   > **Note**: The green check mark in the **Initial domain name** text box will indicate that the domain name you typed in is valid and unique.
+
+1. Click **Review + create** and then click **Create**.
+
+1. Display the blade of the newly created Azure AD tenant by using the **Click here to navigate to your new directory: Contoso Lab** link or the **Directory + Subscription** button (directly to the right of the Cloud Shell button) in the Azure portal toolbar.
+
+ Navigate back to the **Users - All users** blade, and then click **+ New user**.
+
+1. Create a new user with the following settings (leave others with their defaults):
+
+    | Setting | Value |
+    | --- | --- |
+    | User name | **AzureExpert** |
+    | Name | **Azure Expert** |
+    | Let me create the password | enabled |
+    | Initial password | **Pa55w.rd124** |
+    | Usage location | **United States** |
+    | Job title | **Azure Expert** |
+    | Department | **IT** |
+
+    >**Note**: **Copy to clipboard** the full **User Principal Name** (user name plus domain). You will need it later in this task.
+
+1. In the list of users, click the newly created user account to display its blade.
+
+1. Review the options available in the **Manage** section and note that you can identify the Azure AD roles assigned to the user account as well as the user account's permissions to Azure resources.
+
+1. In the **Manage** section, click **Assigned roles**, then click **+ Add assignment** button and assign the **User administrator** role to user.
+
+    >**Note**: You also have the option of assigning Azure AD roles when provisioning a new user.
+
+1. Open an **InPrivate** browser window and sign in to the [Azure portal](https://portal.azure.com) using the newly created user account. When prompted to update the password, change the password for the user.
+
+    >**Note**: Rather than typing the user name (including the domain name), you can paste the content of Clipboard.
+
+1. In the **InPrivate** browser window, in the Azure portal, search for and select **Azure Active Directory**.
+
+1. In the **InPrivate** browser window, on the Azure AD blade, scroll down to the **Manage** section, click **User settings**, and note that you do not have permissions to modify any configuration options.
+
+1. In the Azure portal, navigate back to the Azure AD tenant blade and click **Groups**.
+
+1. In the Azure portal, navigate back to the Azure AD tenant blade and click **Groups**.
+
+1. Use the **+ New group** button to create a new group with the following settings:
+
+    | Setting | Value |
+    | --- | --- |
+    | Group type | **Security** |
+    | Group name | **GS-AzureExpert** |
+    | Group description | **Azure Expert Team** |
+    | Membership type | **Assigned** |
+
+1. Click **No members selected**.
+
+1. From the **Add members** blade, search and select the **GS-AzureExpert** appears in the list of user members.
+
+## Lab #03 - Azure RBAC (20 minutes) 
+
+## Lab #04 - Azure RBAC (20 minutes) 
+
+## Lab #05 - Azure Monitor (30 minutes)
+
+## Lab #06 - Azure SQL Database (30 minutes)
 
 1. End of day 3 and **Imersao Azure Azure Expert**.
 
