@@ -1308,9 +1308,104 @@ In this task, you will swap the staging slot with the production slot
 
 1. Enable MFA to users [Manual Leires](https://1drv.ms/p/s!AqofFXIc7oj5gqZUTUsIuxogr96vRQ)
 
-## Lab #03 - Azure RBAC (20 minutes) 
+## Lab #03 - Azure RBAC (20 minutes)
 
-## Lab #04 - Azure Policy (30 minutes) 
+1. In the Azure portal, search for and select **Azure Active Directory**, on the Azure Active Directory blade, click **Users**, and then click **+ New user**.
+
+1. Create a new user with the following settings (leave others with their defaults):
+
+    | Setting | Value |
+    | --- | --- |
+    | User name | **azure-support**|
+    | Name | **azure-support**|
+    | Let me create the password | enabled |
+    | Initial password | **Pa55w.rd124** |
+
+    >**Note**: **Copy to clipboard** the full **User name**. You will need it later in this lab.
+
+1. In the Azure portal, navigate back to the **Subscritions** and display its **details**.
+
+1. Click **Access control (IAM)**, click **+ Add** followed by **Role assignment**, and assign the **Support Request Contributor (Custom)** role to the newly created user account.
+
+1. Open an **InPrivate** browser window and sign in to the [Azure portal](https://portal.azure.com) using the newly created user account. When prompted to update the password, change the password for the user.
+
+    >**Note**: Rather than typing the user name, you can paste the content of Clipboard.
+
+1. In the **InPrivate** browser window, in the Azure portal, search and select **Resource groups** to verify that the user can see all resource groups.
+
+1. In the **InPrivate** browser window, in the Azure portal, search and select **All resources** to verify that the user cannot see any resources.
+
+1. In the **InPrivate** browser window, in the Azure portal, search and select **Help + support** and then click **+ New support request**. 
+
+1. In the **InPrivate** browser window, on the **Basic** tab of the **Help + support - New support request** blade, select the **Service and subscription limits (quotas)** issue type and note that the subscription you are using in this lab is listed in the **Subscription** drop-down list.
+
+    >**Note**: The presence of the subscription you are using in this lab in the **Subscription** drop-down list indicates that the account you are using has the permissions required to create the subscription-specific support request.
+
+    >**Note**: If you do not see the **Service and subscription limits (quotas)** option, sign out from the Azure portal and sign in back.
+
+1. Do not continue with creating the support request. Instead, sign out as the user from the Azure portal and close the InPrivate browser window.
+
+## Lab #04 - Azure Policy (30 minutes)
+
+1. In the Azure portal, search for and select **Policy**. 
+
+1. In the **Authoring** section, click **Definitions**. Take a moment to browse through the list of built-in policy definitions that are available for you to use. List all built-in policies that involve the use of tags by selecting the **Tags** entry (and de-selecting all other entries) in the **Category** drop-down list. 
+
+1. Click the entry representing the **Require a tag and its value on resources** built-in policy and review its definition.
+
+1. On the **Require a tag and its value on resources** built-in policy definition blade, click **Assign**.
+
+1. Specify the **Scope** by clicking the ellipsis button and selecting the following values:
+
+    | Setting | Value |
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Resource Group | the name of the resource group |
+
+    >**Note**: A scope determines the resources or resource groups where the policy assignment takes effect. You could assign policies on the management group, subscription, or resource group level. You also have the option of specifying exclusions, such as individual subscriptions, resource groups, or resources (depending on the assignment scope). 
+
+1. Configure the **Basics** properties of the assignment by specifying the following settings (leave others with their defaults):
+
+    | Setting | Value |
+    | --- | --- |
+    | Assignment name | **Require Role tag with Azure Expert value**|
+    | Description | **Require Role tag with Azure Expert value for all resources**|
+    | Policy enforcement | Enabled |
+
+    >**Note**: The **Assignment name** is automatically populated with the policy name you selected, but you can change it. You can also add an optional **Description**. **Assigned by** is automatically populated based on the user name creating the assignment. 
+
+1. Click **Next** and set **Parameters** to the following values:
+
+    | Setting | Value |
+    | --- | --- |
+    | Tag Name | **Role** |
+    | Tag Value | **AzureExpert** |
+
+1. Click **Next** and review the **Remediation** tab. Leave the **Create a Managed Identity** checkbox unchecked. 
+
+    >**Note**: This setting can be used when the policy or initiative includes the **deployIfNotExists** or **Modify** effect.
+
+1. Click **Review + Create** and then click **Create**.
+
+    >**Note**: Now you will verify that the new policy assignment is in effect by attempting to create another Azure Storage account in the resource group without explicitly adding the required tag. 
+    
+    >**Note**: It might take between 5 and 15 minutes for the policy to take effect.
+
+1. On the resource group blade, click **+ Add**.
+
+1. On the **New** blade, search for and select **Storage account**, and click **Create**. 
+
+1. On the **Basics** tab of the **Create storage account** blade, specify the following settings (leave others with their defaults) and click **Review + create**:
+
+    | Setting | Value |
+    | --- | --- |
+    | Storage account name | any globally unique combination of between 3 and 24 lower case letters and digits, starting with a letter |
+
+1. Note that the validation failed. Click the link **Validation failed. Click here to view details** to display the **Errors** blade and identify the reason for the failure. 
+
+    >**Note**: The error message states that the resource deployment was disallowed by the policy. 
+
+    >**Note**: By clicking the **Raw Error** tab, you can find more details about the error, including the name of the role definition **Require Role tag with Infra value**. The deployment failed because the storage account you attempted to create did not have a tag named **Role** with its value set to **AzureExpert**.
 
 ## Lab #05 - Azure Monitor (30 minutes)
 
