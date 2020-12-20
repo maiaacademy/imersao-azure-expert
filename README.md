@@ -1407,7 +1407,110 @@ In this task, you will swap the staging slot with the production slot
 
     >**Note**: By clicking the **Raw Error** tab, you can find more details about the error, including the name of the role definition **Require Role tag with Infra value**. The deployment failed because the storage account you attempted to create did not have a tag named **Role** with its value set to **AzureExpert**.
 
-## Lab #05 - Azure Monitor (30 minutes)
+## Lab #05 - Azure Monitor (20 minutes)
+
+1. From the Cloud Shell pane, run the following to register the Microsoft.Insights resource providers.
+
+   ```pwsh
+   Register-AzResourceProvider -ProviderNamespace Microsoft.Insights
+    ```
+
+1. In the Azure portal, search for and select **Log Analytics workspaces** and, on the **Log Analytics workspaces** blade, click **+ Add**.
+
+1. On the **Basics** tab of the **Create Log Analytics workspace** blade, the following settings, click **Review + Create** and then click **Create**:
+
+    | Settings | Value |
+    | --- | --- |
+    | Subscription | the name of the Azure subscription you are using in this lab |
+    | Resource group | the name of a new resource group **RG-LA** |
+    | Log Analytics Workspace | any unique name |    
+    | Region | the name of the Azure region into which you deployed the virtual machine in the previous task |
+
+    >**Note**: Wait for the deployment to complete. The deployment should take about 1 minute.
+
+1. In the Azure portal, search for and select **Virtual machines**, and on the **Virtual machines** blade, click **VMANME**.
+
+1. On the **VMANME** blade, in the **Monitoring** section, click **Metrics**.
+
+1. On the **VMNAME | Metrics** blade, on the default chart, note that the only available **Metrics Namespace** is **Virtual Machine Host**.
+
+    >**Note**: This is expected, since no guest-level diagnostic settings have been configured yet. You do have, however, the option of enabling guest memory metrics directly from the **Metrics Namespace** drop down-list. You will enable it later in this exercise.
+
+1. In the **Metric** drop-down list, review the list of available metrics.
+
+    >**Note**: The list includes a range of CPU, disk, and network-related metrics that can be collected from the virtual machine host, without having access into guest-level metrics.
+
+1. In the **Metric** drop-down list, select **Percentage CPU**, in the **Aggregation** drop-down list, select **Avg**, and review the resulting chart. 
+
+1. On the **VMNAME** blade, in the **Monitoring** section, click **Diagnostic settings**.
+
+1. On the **Overview** tab of the **VMNAME | Diagnostic settings** blade, click **Enable guest-level monitoring**.
+
+    >**Note**: Wait for the operation to take effect. This might take about 3 minutes.
+
+1. Switch to the **Performance counters** tab of the **VMNAME | Diagnostic settings** blade and review the available counters.
+
+    >**Note**: By default, CPU, memory, disk, and network counters are enabled. You can switch to the **Custom** view for more detailed listing.
+
+1. Switch to the **Logs** tab of the **VMNAME | Diagnostic settings** blade and review the available event log collection options.
+
+    >**Note**: By default, log collection includes critical, error, and warning entries from the Application Log and System log, as well as Audit failure entries from the Security log. Here as well you can switch to the **Custom** view for more detailed configuration settings.
+
+1. On the **VMNAME** blade, in the **Monitoring** section, click **Logs** and then click **Enable**. 
+
+1. On the **VMNAME - Logs** blade, ensure that the Log Analytics workspace you created earlier in this lab is selected in the **Choose a Log Analytics Workspace** drop-down list and click **Enable**.
+
+    >**Note**: Do not wait for the operation to complete but instead proceed to the next step. The operation might take about 5 minutes.
+
+1. On the **VMNAME | Logs** blade, in the **Monitoring** section, click **Metrics**.
+
+1. On the **VMNAME | Metrics** blade, on the default chart, note that at this point, the **Metrics Namespace** drop-down list, in addition to the **Virtual Machine Host** entry includes also the **Guest (classic)** entry.
+
+    >**Note**: This is expected, since you enabled guest-level diagnostic settings. You also have the option to **Enable new guest memory metrics**.
+
+1. In the **Metrics Namespace** drop-down list, select  the **Guest (classic)** entry.
+
+1. In the **Metric** drop-down list, review the list of available metrics.
+
+    >**Note**: The list includes additional guest-level metrics not available when relying on the host-level monitoring only. 
+
+1. In the **Metric** drop-down list, select **Memory\Available Bytes**, in the **Aggregation** drop-down list, select **Max**, and review the resulting chart. 
+   
+1. In the Azure portal, search for and select **Monitor** and, on the **Monitor | Overview** blade, click **Metrics**.
+
+1. On the **Select a scope** blade, on the **Browse** tab, navigate to the Virtual machine.
+
+1. In the **Metric** drop-down list, select **Percentage CPU**, in the **Aggregation** drop-down list, select **Avg**, and review the resulting chart.
+
+In the Azure portal, navigate back to the **Monitor** blade, click **Logs**. 
+
+    >**Note**: You might need to click **Get Started** if this is the first time you access Log Analytics.
+
+1. If necessary, click **Select scope**, on the **Select a scope** blade, select the **Recent** tab, select **VMNAME**, and click **Apply**.
+
+1. In the query window, paste the following query, click **Run**, and review the resulting chart:
+
+   ```
+   // Virtual Machine available memory
+   // Chart the VM's available memory over the last hour.
+   InsightsMetrics
+   | where TimeGenerated > ago(1h)
+   | where Name == "AvailableMB"
+   | project TimeGenerated, Name, Val
+   | render timechart
+   ```
+
+1. Click **Queries** in the toolbar, on the **Queries** pane, locate the **Track VM availability** tile, click the **Run** command button in the tile, and review the results. 
+
+1. On the **New Query 1** tab, select the **Tables** header, and review the list of tables in the **Virtual machines** section.
+
+    >**Note**: The names of several tables correspond to the solutions you installed earlier in this lab.
+
+1. Hover the mouse over the **VMComputer** entry and click the **Preview data** icon.  
+
+1. If any data is available, in the **Update** pane, click **See in query editor**.
+
+    >**Note**: You might need to wait a few minutes before the update data becomes available.
 
 ## Lab #06 - Azure SQL Database (30 minutes)
 
