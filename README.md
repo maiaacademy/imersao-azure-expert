@@ -1232,7 +1232,7 @@ In this task, you will swap the staging slot with the production slot
 
  >**Note**: Do not wait for the backup to complete but instead proceed.
 
-## Project #03 - Azure Site Recovery (60 minutes)
+## Project #03 - Azure Site Recovery (45 minutes)
 
 1. In a browser, navigate to the [Disaster Recovery with Azure Site Recovery](https://docs.microsoft.com/en-us/learn/modules/protect-infrastructure-with-site-recovery/) webpage and start lab.
 
@@ -1240,7 +1240,7 @@ In this task, you will swap the staging slot with the production slot
 
    ![Screenshot of the application archicture](/AllFiles/Images/IMG04.png)
 
-## Lab #02 - Azure AD (20 minutes)
+## Lab #02 - Azure AD (15 minutes)
 
 1. In the Azure portal, search for and select **Azure Active Directory**.
 
