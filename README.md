@@ -1516,7 +1516,6 @@ In the Azure portal, navigate back to the **Monitor** blade, click **Logs**.
 
 1. In a browser, navigate to the [Deploy and configure servers, instances, and databases for Azure SQL](https://docs.microsoft.com/en-us/learn/modules/azure-sql-deploy-configure/) webpage and start lab.
 
-
 1. End of day 3 and **Imersao Azure Azure Expert**.
 
 1. Continue in the **Mentoria Arquiteto Cloud**.
